@@ -59,20 +59,20 @@ bool Widget::eventLoop(Event* a_event)
 	{
 	case Event::EventType::LBUTTONDOWN:
 	case Event::EventType::RBUTTONDOWN:
-		mousePressEvent((MouseEvent*)a_event);    // Fixme: 类型转换还有别的办法吧我记得
+		mousePressEvent(static_cast<MouseEvent*>(a_event));    // Fixme: 类型转换还有别的办法吧我记得
 		break;
 	case Event::EventType::LBUTTONUP:
 	case Event::EventType::RBUTTONUP:
-		mouseReleaseEvent((MouseEvent*)a_event);
+		mouseReleaseEvent(static_cast<MouseEvent*>(a_event));
 		break;
 	case Event::EventType::MOUSEMOVE:
-		mouseMoveEvent((MouseEvent*)a_event);
+		mouseMoveEvent(static_cast<MouseEvent*>(a_event));
 		break;
 	case Event::EventType::BUTTON_CLICK:
 	case Event::EventType::BUTTON_DBLCLK:
-		buttonPressEvent((ButtonEvent*)a_event);
+		buttonPressEvent(static_cast<ButtonEvent*>(a_event)); 
 	case Event::EventType::PAINTEVENT:
-		paintEvent((PaintEvent*)a_event);
+		paintEvent(static_cast<PaintEvent*>(a_event));
 	}
 
 

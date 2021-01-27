@@ -16,7 +16,7 @@ ToolBar::ToolBar(ShowObject* a_parent) : ShowObject(a_parent, TOOLBARCLASSNAME)
 		0, 0, 0, 0,
 		getParentHwnd(),
 		NULL,
-		getInstance(),
+		getInstance(),   
 		NULL
 	);
 

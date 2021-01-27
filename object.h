@@ -22,7 +22,6 @@ public:
 	Object(Object*);
 	virtual ~Object();
 
-	// TODO: 这个是不是弄成帮助方法更好呢？
 	virtual int addChild(Object*);                      // 添加子对象
 	HINSTANCE getInstance() { return m_instance; }      // 返回当前实例
 	int getObjectId() { return m_objectId; }            // 返回唯一id 

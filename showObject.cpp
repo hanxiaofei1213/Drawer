@@ -127,17 +127,6 @@ void ShowObject::addShowList(ShowObject* a_toAddObject)
 
 
 /**
- * @brief 将对象从展示列表中删除
- * @param a_showObject 要删除的对象
- */
-void ShowObject::removeShowList(ShowObject*)
-{
-	// TODO: 实现这个
-	printf("未实现\n");
-}
-
-
-/**
  * @brief 展示自己和展示列表里面的所有元素
  */
 void ShowObject::show()               

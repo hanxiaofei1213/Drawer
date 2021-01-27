@@ -13,13 +13,15 @@
 
 class ToolBar;
 class ToolbarBtn;
-class Shape;
 
 class Drawer : public Widget{
 public:
 
 	Drawer();
 	virtual ~Drawer();
+	 
+	void init();                                                 // 一些初始化
+	virtual void drawAll();                                      // 将所有shape画到内存画板，一次性显示
 
 protected:
 	virtual void mousePressEvent(MouseEvent*) override;          // 处理鼠标按下的事件
@@ -38,4 +40,12 @@ private:
 	Shape::ShapeType m_shapeType;           // 存放临时形状类型
 	Shape* m_tempShape;                     // 临时形状
 	Point* m_beginPoint;                    // 开始时的点
+	HDC m_hdc;                              // 当前窗口HDC
+	RECT m_rc;                              // 当前窗口区域
+	RECT m_toolbarRC;                       // 工具栏区域
+	RECT m_flashArea;                       // 要刷新的区域
+	HDC m_memHdc;                           // 内存HDC
+	HBITMAP m_memBitMap;                    // 内存画布
+	int m_nBitmapWidth;                     // 内存画布宽度
+	int m_nBitmapHeight;                    // 内存画布宽度
 };

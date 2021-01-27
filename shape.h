@@ -24,7 +24,7 @@ public:
 	StateType getState() { return m_state; }                    // 获取当前状态
 	ShapeType getShape() { return m_shapeType; }                // 获取当前形状
 
-	void setHDC(HDC a_hdc) { m_hdc = a_hdc; }                   // 设置HDC
+	void setHDC(HDC a_hdc);                                     // 设置HDC
 	void setState(StateType a_state) { m_state = a_state; }     // 设置当前状态
 	void setShape(ShapeType a_shape) { m_shapeType = a_shape; } // 当前形状
  

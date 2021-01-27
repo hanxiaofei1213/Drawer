@@ -8,32 +8,96 @@
 #include "line.h"
 #include "rectangle.h"
 
+
 // 构造函数
 Drawer::Drawer() : Widget(NULL), m_shapeType(Shape::ShapeType::NODEFINE), m_tempShape(nullptr)
 {
-	m_beginPoint = new Point;
-
 	// 设置自己的一些属性
 	setText(TEXT("Drawer"));
 	resize(800, 600);
+	m_beginPoint = new Point;
+	m_hdc = GetDC(getHwnd());
 
 	// 绘制自己的界面
 	m_toolbar = new ToolBar(this);
 	m_arrowBBtn = new ToolbarBtn(m_toolbar);
 	m_lineTBBtn = new ToolbarBtn(m_toolbar);
 	m_rectTBBtn = new ToolbarBtn(m_toolbar);
-	
+
 	m_arrowBBtn->setText(TEXT("Arrow"));
 	m_lineTBBtn->setText(TEXT("Line"));
 	m_rectTBBtn->setText(TEXT("Rect"));
+
+	init();
 }
 
 // 析构函数
 Drawer::~Drawer()
 {
+	DeleteDC(m_memHdc);
+	DeleteObject(m_memBitMap);
+	ReleaseDC(getHwnd(), m_hdc);
 	delete m_beginPoint;
 	for (auto i : m_shapeList)
 		delete i;
+}
+
+
+/**
+ * @brief 一些有意义的初始化
+ */
+void Drawer::init()
+{
+	// 获取工具栏和总窗口的位置大小
+	GetWindowRect(getHwnd(), &m_rc);
+	GetWindowRect(m_toolbar->getHwnd(), &m_toolbarRC);
+
+	// 计算画布大小
+	int nleftUpX = m_toolbarRC.left;
+	int nleftUpY = m_toolbarRC.top;
+	m_nBitmapWidth = m_toolbarRC.right - m_toolbarRC.left;
+	m_nBitmapHeight = m_rc.bottom - m_toolbarRC.top;
+	m_flashArea.left = m_toolbarRC.left;
+	m_flashArea.top = m_toolbarRC.bottom;
+	m_flashArea.right = m_toolbarRC.right;
+	m_flashArea.bottom = m_rc.bottom;
+}
+
+
+/**
+ * @brief 将所有图形绘制到内存画布，一次展示全部
+ */
+void Drawer::drawAll()
+{
+	m_memHdc = CreateCompatibleDC(m_hdc);
+	m_memBitMap = CreateCompatibleBitmap(m_hdc, m_nBitmapWidth, m_nBitmapHeight);
+	static HBRUSH hbrush = CreateSolidBrush(RGB(255, 255, 255));
+	SelectObject(m_memHdc, m_memBitMap);
+	SelectObject(m_memHdc, hbrush);
+	Rectangle(m_memHdc, 0, 0, m_nBitmapWidth, m_nBitmapHeight);
+
+	// 在内存画布上画
+	for (auto shape : m_shapeList)
+	{
+		shape->setHDC(m_memHdc);
+		shape->draw();
+	}
+	// 如果临时shape也有
+	if (m_tempShape)
+	{
+		m_tempShape->setHDC(m_memHdc);
+		m_tempShape->draw();
+	}
+
+	// 搬到现实画布
+	int loc = m_toolbarRC.bottom - m_toolbarRC.top;
+	BitBlt(m_hdc, 0, loc, m_nBitmapWidth, m_nBitmapHeight, m_memHdc, 0, loc, SRCCOPY);
+
+	// 恢复原本的HDC
+	for (auto shape : m_shapeList)
+		shape->setHDC(m_hdc);
+	if (m_tempShape)
+		m_tempShape->setHDC(m_hdc);
 }
 
 /**
@@ -44,15 +108,11 @@ Drawer::~Drawer()
 void Drawer::mousePressEvent(MouseEvent* a_event)
 {
 	if (a_event->getButtonType() != MouseEvent::ButtonType::LEFTBUTTON)
-		return;
-	
-	// FixMe: 为什么这里加上就对了？
-	InvalidateRect(getHwnd(), NULL, TRUE);     
+		return;  
 
 	// 获取鼠标开始的点
 	m_beginPoint->setX(a_event->getPos()->x());
 	m_beginPoint->setY(a_event->getPos()->y());
-	HDC hdc = GetDC(getHwnd());
 
 	switch (m_shapeType)
 	{
@@ -61,21 +121,21 @@ void Drawer::mousePressEvent(MouseEvent* a_event)
 		break;
 	case Shape::ShapeType::LINE:
 	{
-		Line* line = new Line(hdc);
+		Line* line = new Line(m_hdc);
 		line->setBegin(*m_beginPoint);
+		line->setEnd(*m_beginPoint);
 		m_tempShape = (Shape*)line;
 		break;
 	}
 	case Shape::ShapeType::RECT:
 	{
-		Rect* rect = new Rect(hdc);
+		Rect* rect = new Rect(m_hdc);
+		rect->setBegin(*m_beginPoint);
 		rect->setBegin(*m_beginPoint);
 		m_tempShape = (Shape*)rect;
 		break;
 	}
 	}
-	
-	ReleaseDC(getHwnd(), hdc);
 }
 
 
@@ -91,10 +151,11 @@ void Drawer::mouseMoveEvent(MouseEvent* a_event)
 	// 如果没选择任何shape，则不处理
 	if (!m_tempShape)
 		return;
+	
+	// 把所有的展示出来
+	drawAll();
 
-	Point endPoint;
-	endPoint.setX(a_event->getPos()->x());
-	endPoint.setY(a_event->getPos()->y());
+	Point endPoint(a_event->getPos()->x(), a_event->getPos()->y());
 	switch (m_shapeType)
 	{
 	// 工具栏为arrow模式
@@ -134,7 +195,6 @@ void Drawer::mouseReleaseEvent(MouseEvent* a_event)
 	if (a_event->getButtonType() != MouseEvent::ButtonType::LEFTBUTTON)
 		return;
 
-
 	// 如果当前shape为空，则不处理
 	if (!m_tempShape)
 		return;
@@ -148,8 +208,7 @@ void Drawer::mouseReleaseEvent(MouseEvent* a_event)
 	m_tempShape = nullptr;
 
 	// 强制重绘，擦除临时形状，只显示paintEvent中的形状
-	InvalidateRect(getHwnd(), NULL, TRUE);
-	//SendMessage(getHwnd(), WM_PAINT, 0, 0);
+	InvalidateRect(getHwnd(), &m_flashArea, TRUE);
 }
 
 
@@ -159,8 +218,7 @@ void Drawer::mouseReleaseEvent(MouseEvent* a_event)
  */
 void Drawer::paintEvent(PaintEvent* a_event)
 {
-	for (auto i : m_shapeList)
-		i->draw();	
+	drawAll();
 }
 
 /**
@@ -185,7 +243,6 @@ void Drawer::buttonPressEvent(ButtonEvent* a_event)
 }
 
 
-// TODO: 这个函数返回值是不是可以改一下？
 /**
  * @brief 检查当前所有shape的状态
  * @param a_point 鼠标点击的位置

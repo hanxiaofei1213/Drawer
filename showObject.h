@@ -38,7 +38,6 @@ public:
 
 	std::vector<ShowObject*>& getShowList();                       // 返回展示列表
 	void addShowList(ShowObject*);                                 // 添加到展示列表中
-	void removeShowList(ShowObject*);                              // 从展示列表中删除
 
 	virtual void show();                                           // 显示这个窗口
 

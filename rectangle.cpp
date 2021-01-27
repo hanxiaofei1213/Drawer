@@ -35,7 +35,7 @@ void Rect::setEnd(const Point& a_point)
 }
 
 
-// TODO:记得设置鼠标样式，可能需要改成const
+// TODO:记得设置鼠标样式
 /**
  * @brief 查看鼠标位置是否选中自己
  * @param a_checkPoint 需要进行判断的鼠标坐标

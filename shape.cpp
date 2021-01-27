@@ -15,3 +15,9 @@ Shape::~Shape()
 {
 	delete m_painter;
 }
+
+void Shape::setHDC(HDC a_hdc)
+{
+	m_hdc = a_hdc;
+	m_painter->setHDC(a_hdc);
+}
