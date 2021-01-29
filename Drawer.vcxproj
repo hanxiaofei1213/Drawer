@@ -72,6 +72,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -175,12 +176,16 @@
     <ClInclude Include="paintEvent.h" />
     <ClInclude Include="point.h" />
     <ClInclude Include="rectangle.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="shape.h" />
     <ClInclude Include="showObject.h" />
     <ClInclude Include="toolBar.h" />
     <ClInclude Include="toolBarBtn.h" />
     <ClInclude Include="widget.h" />
     <ClInclude Include="wndProc.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Drawer.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

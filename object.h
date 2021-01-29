@@ -4,7 +4,7 @@
 // FileName : object.h
 // Creator : 王文喜
 // Data : 2021/1/15
-// Comment : 所有封装好的控件的基类，提供事件分发和对象树维护
+// Comment : 所有封装好的控件的基类，提供事件分发
 //////////////////////////////////////////////////////////////////////////
 
 
@@ -32,7 +32,7 @@ public:
 
 private:
 	Object* m_parent;                                   // 父控件
-	std::vector<Object*> m_children;                    // 子控件列表，用来管理内存释放和提供唯一id！！！
+	std::vector<Object*> m_children;                    // 子控件列表，用来管理内存释放和提供唯一id
 	HINSTANCE m_instance;                               // 当前的进程实例
 	int m_objectId;                                     // 每个控件的唯一id
 };

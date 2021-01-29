@@ -53,7 +53,6 @@ private:
 	HWND m_hwnd;                   // 当前的窗口句柄
 	HWND m_parentHwnd;             // 父对象的句柄
 	std::vector<ShowObject*> m_showChildList; // 保存所有展示控件，用于在show()函数中，展示所有
-	
 };
 
 

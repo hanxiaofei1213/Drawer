@@ -31,7 +31,7 @@ Point Point::addPoint(const Point& a_point) const
 	Point p;
 	p.setX(m_nx + a_point.x());
 	p.setY(m_ny + a_point.y());
-	return p;
+	return p;   // 移动语义
 }
 
 /**
@@ -43,7 +43,7 @@ Point Point::minusPoint(const Point& a_point) const
 	Point p;
 	p.setX(m_nx - a_point.x());
 	p.setY(m_ny - a_point.y());
-	return p;
+	return p;   // 移动语义
 }
 
 /**

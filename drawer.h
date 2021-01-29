@@ -16,7 +16,6 @@ class ToolbarBtn;
 
 class Drawer : public Widget{
 public:
-
 	Drawer();
 	virtual ~Drawer();
 	 

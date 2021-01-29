@@ -31,7 +31,6 @@ public:
 	virtual Shape* checkState(const Point&) = 0;                // 检查自己是否被选中
 	virtual void moveFunction(const Point&, const Point&) = 0;  // 移动函数
 	virtual void zoomFunction(const Point&, const Point&) = 0;  // 放大缩小函数
-
 	virtual void draw() = 0;                                    // 将自己画出来
 
 

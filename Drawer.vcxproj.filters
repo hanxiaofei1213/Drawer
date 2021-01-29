@@ -13,6 +13,24 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="头文件\shape">
+      <UniqueIdentifier>{435db680-68ce-4d2f-a2b5-d450fdf13e64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\event">
+      <UniqueIdentifier>{4ff07a77-a81f-4602-b438-56aaeed4cd94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\object">
+      <UniqueIdentifier>{01d34977-3699-4a92-a803-e0ced549f61b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\event">
+      <UniqueIdentifier>{f5c68f19-1c2d-4dcf-adf7-726f54753311}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\shape">
+      <UniqueIdentifier>{e7afad4d-9071-4ab7-b9aa-aa65877c3574}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\object">
+      <UniqueIdentifier>{51334935-77bc-4189-9923-e084a073e004}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -24,53 +42,53 @@
     <ClCompile Include="drawer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="eventLoop.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="widget.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="object.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="showObject.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="wndProc.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="button.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="event.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="mouseEvent.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="buttonEvent.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="paintEvent.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="painter.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="shape.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="buttonEvent.cpp">
+      <Filter>源文件\event</Filter>
     </ClCompile>
-    <ClCompile Include="rectangle.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="event.cpp">
+      <Filter>源文件\event</Filter>
+    </ClCompile>
+    <ClCompile Include="eventLoop.cpp">
+      <Filter>源文件\event</Filter>
+    </ClCompile>
+    <ClCompile Include="mouseEvent.cpp">
+      <Filter>源文件\event</Filter>
+    </ClCompile>
+    <ClCompile Include="paintEvent.cpp">
+      <Filter>源文件\event</Filter>
+    </ClCompile>
+    <ClCompile Include="wndProc.cpp">
+      <Filter>源文件\event</Filter>
     </ClCompile>
     <ClCompile Include="line.cpp">
-      <Filter>源文件</Filter>
+      <Filter>源文件\shape</Filter>
     </ClCompile>
-    <ClCompile Include="toolBarBtn.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="shape.cpp">
+      <Filter>源文件\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="rectangle.cpp">
+      <Filter>源文件\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="button.cpp">
+      <Filter>源文件\object</Filter>
+    </ClCompile>
+    <ClCompile Include="object.cpp">
+      <Filter>源文件\object</Filter>
+    </ClCompile>
+    <ClCompile Include="showObject.cpp">
+      <Filter>源文件\object</Filter>
     </ClCompile>
     <ClCompile Include="toolBar.cpp">
-      <Filter>源文件</Filter>
+      <Filter>源文件\object</Filter>
+    </ClCompile>
+    <ClCompile Include="toolBarBtn.cpp">
+      <Filter>源文件\object</Filter>
+    </ClCompile>
+    <ClCompile Include="widget.cpp">
+      <Filter>源文件\object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -80,53 +98,61 @@
     <ClInclude Include="drawer.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="eventLoop.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="shape.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="widget.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="object.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="wndProc.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="showObject.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="button.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="event.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="mouseEvent.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="buttonEvent.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="paintEvent.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="painter.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="rectangle.h">
+    <ClInclude Include="resource.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="line.h">
-      <Filter>头文件</Filter>
+      <Filter>头文件\shape</Filter>
     </ClInclude>
-    <ClInclude Include="toolBarBtn.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="shape.h">
+      <Filter>头文件\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="rectangle.h">
+      <Filter>头文件\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="buttonEvent.h">
+      <Filter>头文件\event</Filter>
+    </ClInclude>
+    <ClInclude Include="event.h">
+      <Filter>头文件\event</Filter>
+    </ClInclude>
+    <ClInclude Include="eventLoop.h">
+      <Filter>头文件\event</Filter>
+    </ClInclude>
+    <ClInclude Include="mouseEvent.h">
+      <Filter>头文件\event</Filter>
+    </ClInclude>
+    <ClInclude Include="paintEvent.h">
+      <Filter>头文件\event</Filter>
+    </ClInclude>
+    <ClInclude Include="wndProc.h">
+      <Filter>头文件\event</Filter>
+    </ClInclude>
+    <ClInclude Include="button.h">
+      <Filter>头文件\object</Filter>
+    </ClInclude>
+    <ClInclude Include="showObject.h">
+      <Filter>头文件\object</Filter>
     </ClInclude>
     <ClInclude Include="toolBar.h">
-      <Filter>头文件</Filter>
+      <Filter>头文件\object</Filter>
     </ClInclude>
+    <ClInclude Include="toolBarBtn.h">
+      <Filter>头文件\object</Filter>
+    </ClInclude>
+    <ClInclude Include="widget.h">
+      <Filter>头文件\object</Filter>
+    </ClInclude>
+    <ClInclude Include="object.h">
+      <Filter>头文件\object</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Drawer.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

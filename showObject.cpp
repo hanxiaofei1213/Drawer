@@ -37,9 +37,10 @@ ShowObject::ShowObject(ShowObject* a_parent, LPCTSTR a_className) : Object(a_par
 }
 
 
-// TODO:想一下释放什么资源
 ShowObject::~ShowObject()
 {
+	if (m_hwnd)
+		DestroyWindow(m_hwnd);
 	delete m_location;
 }
 
@@ -132,9 +133,7 @@ void ShowObject::addShowList(ShowObject* a_toAddObject)
 void ShowObject::show()               
 {
 	for (auto i : m_showChildList)
-	{
 		i->show(); 
-	}
 	ShowWindow(getHwnd(), TRUE);
 	UpdateWindow(getHwnd());
 }
@@ -145,6 +144,5 @@ void ShowObject::show()
  */
 bool ShowObject::eventLoop(Event* a_event) 
 {
-
 	return Object::eventLoop(a_event);
 }

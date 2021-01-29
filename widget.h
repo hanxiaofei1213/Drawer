@@ -6,7 +6,6 @@
 // Comment : 窗体控件，将WNDCLASS等操作封装起来，拥有处理事件的能力，也拥有成为其他控件父控件的能力
 //////////////////////////////////////////////////////////////////////////
 
-
 #include <windows.h>
 
 #include "showObject.h"
@@ -18,7 +17,7 @@ class PaintEvent;
 class Widget : public ShowObject {
 public:
 	Widget(ShowObject* a_parent);
-	~Widget();
+	virtual ~Widget();
 
 	virtual bool eventLoop(Event*) override;                       // 重写Object的事件循环
 	
@@ -29,8 +28,4 @@ protected:
 	virtual void paintEvent(PaintEvent*);                          // 处理重绘事件
 	virtual void buttonPressEvent(ButtonEvent*);                   // 将按钮按下的事件分发到具体的按钮
 
-
-
-private:
-	
 };

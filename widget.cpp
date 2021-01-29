@@ -15,7 +15,7 @@ Widget::Widget(ShowObject* a_parent) : ShowObject(a_parent, TEXT("Widget"))
 	wndClass.style = CS_HREDRAW | CS_VREDRAW;
 	wndClass.lpfnWndProc = WndProc;
 	wndClass.cbClsExtra = 0;
-	wndClass.cbWndExtra = 2 * sizeof(size_t);      // 分配空间，准备把this指针传入
+	wndClass.cbWndExtra = 2 * sizeof(size_t);        // 分配空间，准备把this指针传入
 	wndClass.hInstance = getInstance();
 	wndClass.hIcon = LoadIcon(NULL, IDI_APPLICATION);
 	wndClass.hCursor = LoadCursor(NULL, IDC_ARROW);
@@ -45,7 +45,7 @@ Widget::Widget(ShowObject* a_parent) : ShowObject(a_parent, TEXT("Widget"))
 
 Widget::~Widget()
 {
-
+	
 }
 
 
@@ -59,7 +59,7 @@ bool Widget::eventLoop(Event* a_event)
 	{
 	case Event::EventType::LBUTTONDOWN:
 	case Event::EventType::RBUTTONDOWN:
-		mousePressEvent(static_cast<MouseEvent*>(a_event));    // Fixme: 类型转换还有别的办法吧我记得
+		mousePressEvent(static_cast<MouseEvent*>(a_event));  
 		break;
 	case Event::EventType::LBUTTONUP:
 	case Event::EventType::RBUTTONUP:
@@ -86,7 +86,7 @@ bool Widget::eventLoop(Event* a_event)
  */
 void Widget::mousePressEvent(MouseEvent* a_event)
 {
-	//MessageBox(NULL, TEXT("mousePressEvent"), TEXT("test"), MB_OK);
+	
 }
 
 /**

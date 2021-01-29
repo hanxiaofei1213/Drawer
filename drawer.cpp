@@ -17,6 +17,8 @@ Drawer::Drawer() : Widget(NULL), m_shapeType(Shape::ShapeType::NODEFINE), m_temp
 	resize(800, 600);
 	m_beginPoint = new Point;
 	m_hdc = GetDC(getHwnd());
+	m_memHdc = NULL;
+	m_memBitMap = NULL;
 
 	// 绘制自己的界面
 	m_toolbar = new ToolBar(this);
@@ -34,12 +36,20 @@ Drawer::Drawer() : Widget(NULL), m_shapeType(Shape::ShapeType::NODEFINE), m_temp
 // 析构函数
 Drawer::~Drawer()
 {
-	DeleteDC(m_memHdc);
-	DeleteObject(m_memBitMap);
+	if (m_memHdc)
+		DeleteDC(m_memHdc);
+	if (m_memBitMap)
+		DeleteObject(m_memBitMap);
 	ReleaseDC(getHwnd(), m_hdc);
-	delete m_beginPoint;
+	if (m_tempShape)
+		delete m_tempShape;
 	for (auto i : m_shapeList)
 		delete i;
+	delete m_rectTBBtn;
+	delete m_lineTBBtn;
+	delete m_arrowBBtn;
+	delete m_toolbar;
+	delete m_beginPoint;
 }
 
 
@@ -98,6 +108,10 @@ void Drawer::drawAll()
 		shape->setHDC(m_hdc);
 	if (m_tempShape)
 		m_tempShape->setHDC(m_hdc);
+
+	// 释放对象
+	DeleteObject(m_memBitMap);
+	DeleteDC(m_memHdc);
 }
 
 /**
@@ -152,9 +166,6 @@ void Drawer::mouseMoveEvent(MouseEvent* a_event)
 	if (!m_tempShape)
 		return;
 	
-	// 把所有的展示出来
-	drawAll();
-
 	Point endPoint(a_event->getPos()->x(), a_event->getPos()->y());
 	switch (m_shapeType)
 	{
@@ -164,8 +175,6 @@ void Drawer::mouseMoveEvent(MouseEvent* a_event)
 			m_tempShape->moveFunction(*m_beginPoint, endPoint);
 		else if (m_tempShape->getState() == Shape::StateType::TOZOOM)
 			m_tempShape->zoomFunction(*m_beginPoint, endPoint);
-			
-		m_tempShape->draw();
 		m_beginPoint->setX(endPoint.x());
 		m_beginPoint->setY(endPoint.y());
 		break;
@@ -173,17 +182,18 @@ void Drawer::mouseMoveEvent(MouseEvent* a_event)
 	{
 		Line* line = (Line*)m_tempShape;
 		line->setEnd(endPoint);
-		line->draw();
 		break;
 	}
 	case Shape::ShapeType::RECT:
 	{
 		Rect* rect = (Rect*)m_tempShape;
 		rect->setEnd(endPoint);
-		rect->draw();
 		break;
 	}
 	}
+
+	// 把所有的展示出来，包括容器，包括当前tempShape
+	drawAll();
 }
 
 

@@ -13,8 +13,7 @@ Object::Object(Object* a_parent) : m_instance(GetModuleHandle(NULL)), m_objectId
  */
 Object::~Object()
 {
-	for (auto i : m_children)
-		delete i;
+	
 }
 
 
