@@ -16,12 +16,12 @@ class ToolBar;
 
 class ToolbarBtn : public Object {
 public:
-	ToolbarBtn(ToolBar*);
+	ToolbarBtn(ToolBar* parent);
 	virtual ~ToolbarBtn();
 
 	TBBUTTON& getTBButton() { return m_tbbutton; }
 	
-	void setText(LPCTSTR);              // 设置工具栏按钮的文本
+	void setText(LPCTSTR text);               // 设置工具栏按钮的文本
 
 private:
 	int m_bitmap;                             // 按钮的位图

@@ -1,6 +1,6 @@
 #include "line.h"
 
-Line::Line(HDC a_hdc) : Shape(a_hdc)
+Line::Line(HDC hdc) : Shape(hdc)
 {
 	setShape(Shape::ShapeType::LINE);
 	m_begin = new Point;
@@ -17,16 +17,16 @@ Line::~Line()
 /**
  * @brief 设置起始点
  */
-void Line::setBegin(const Point& a_point)
+void Line::setBegin(const Point& begin)
 {
-	m_begin->setX(a_point.x());
-	m_begin->setY(a_point.y());
+	m_begin->setX(begin.x());
+	m_begin->setY(begin.y());
 }
 
-void Line::setEnd(const Point& a_point)
+void Line::setEnd(const Point& end)
 {
-	m_end->setX(a_point.x());
-	m_end->setY(a_point.y());
+	m_end->setX(end.x());
+	m_end->setY(end.y());
 }
 
 
@@ -36,19 +36,19 @@ void Line::setEnd(const Point& a_point)
  * @param a_checkPoint 鼠标的坐标
  * @return 返回nullptr，则未被选中，否则返回this
  */
-Shape* Line::checkState(const Point& a_checkPoint)
+Shape* Line::checkState(const Point& checkPoint)
 {
-	int x = a_checkPoint.x();
-	int y = a_checkPoint.y();
+	int x = checkPoint.x();
+	int y = checkPoint.y();
 
 	// 如果在线的两个端点附近，则放大缩小
-	if (a_checkPoint.pointAroundPoint(*m_begin, m_nNearLevel) || a_checkPoint.pointAroundPoint(*m_end, m_nNearLevel))
+	if (checkPoint.pointAroundPoint(*m_begin, m_nNearLevel) || checkPoint.pointAroundPoint(*m_end, m_nNearLevel))
 	{
 		setState(Shape::StateType::TOZOOM);
 		return this;
 	}
 	// 如果在线附近，则移动
-	else if (a_checkPoint.pointAroundLine(*m_begin, *m_end, m_nNearLevel)) {
+	else if (checkPoint.pointAroundLine(*m_begin, *m_end, m_nNearLevel)) {
 		setState(Shape::StateType::TOMOVE);
 		return this;
 	} 
@@ -62,9 +62,9 @@ Shape* Line::checkState(const Point& a_checkPoint)
  * @param a_sPoint 原来的位置
  * @param a_dPoint 移动后的位置
  */
-void Line::moveFunction(const Point& a_sPoint, const Point& a_dPoint)
+void Line::moveFunction(const Point& sPoint, const Point& dPoint)
 {
-	Point diffPoint = a_dPoint.minusPoint(a_sPoint);
+	Point diffPoint = dPoint.minusPoint(sPoint);
 	*m_begin = m_begin->addPoint(diffPoint);
 	*m_end = m_end->addPoint(diffPoint);
 }
@@ -75,16 +75,16 @@ void Line::moveFunction(const Point& a_sPoint, const Point& a_dPoint)
  * @param a_sPoint 原来的位置
  * @param a_dPoint 移动后的位置
  */
-void Line::zoomFunction(const Point& a_sPoint, const Point& a_dPoint)
+void Line::zoomFunction(const Point& sPoint, const Point& dPoint)
 {
 	// 如果靠近起点，将起点设为这个
-	if (a_sPoint.pointAroundPoint(*m_begin, m_nNearLevel))
+	if (sPoint.pointAroundPoint(*m_begin, m_nNearLevel))
 	{
-		setBegin(a_dPoint);
+		setBegin(dPoint);
 	}
 	// 如果靠近终点，把重点设为这个
-	else if (a_sPoint.pointAroundPoint(*m_end, m_nNearLevel)) {
-		setEnd(a_dPoint);
+	else if (sPoint.pointAroundPoint(*m_end, m_nNearLevel)) {
+		setEnd(dPoint);
 	}
 }
 

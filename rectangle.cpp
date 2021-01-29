@@ -18,20 +18,20 @@ Rect::~Rect()
  * @brief 设置矩形开始的点
  * @param a_point 开始的点
  */
-void Rect::setBegin(const Point& a_point)
+void Rect::setBegin(const Point& begin)
 {
-	m_begin->setX(a_point.x());
-	m_begin->setY(a_point.y());
+	m_begin->setX(begin.x());
+	m_begin->setY(begin.y());
 }
 
 /**
  * @brief 设置矩形结束的点
  * @param a_point 结束的点
  */
-void Rect::setEnd(const Point& a_point)
+void Rect::setEnd(const Point& end)
 {
-	m_end->setX(a_point.x());
-	m_end->setY(a_point.y());
+	m_end->setX(end.x());
+	m_end->setY(end.y());
 }
 
 
@@ -41,14 +41,14 @@ void Rect::setEnd(const Point& a_point)
  * @param a_checkPoint 需要进行判断的鼠标坐标
  * @return 若为正常，则返回nullptr，否则返回this
  */
-Shape* Rect::checkState(const Point& a_checkPoint)
+Shape* Rect::checkState(const Point& checkPoint)
 {
-	int x = a_checkPoint.x();
-	int y = a_checkPoint.y();
+	int x = checkPoint.x();
+	int y = checkPoint.y();
 
 	
 	// 如果在矩形的左上角或右下角，则需要放大缩小
-	if (a_checkPoint.pointAroundPoint(*m_begin, m_nNearLevel) || a_checkPoint.pointAroundPoint(*m_end, m_nNearLevel))
+	if (checkPoint.pointAroundPoint(*m_begin, m_nNearLevel) || checkPoint.pointAroundPoint(*m_end, m_nNearLevel))
 	{
 		setState(Shape::StateType::TOZOOM);
 		return this;
@@ -73,9 +73,9 @@ Shape* Rect::checkState(const Point& a_checkPoint)
  * @param a_sPoint 原来的位置
  * @param a_dPoint 移动后的位置
  */
-void Rect::moveFunction(const Point& a_sPoint, const Point& a_dPoint)
+void Rect::moveFunction(const Point& sPoint, const Point& dPoint)
 {
-	Point diffPoint = a_dPoint.minusPoint(a_sPoint);
+	Point diffPoint = dPoint.minusPoint(sPoint);
 	*m_begin = m_begin->addPoint(diffPoint);
 	*m_end = m_end->addPoint(diffPoint);
 }
@@ -86,16 +86,16 @@ void Rect::moveFunction(const Point& a_sPoint, const Point& a_dPoint)
  * @param a_sPoint 原来的位置
  * @param a_dPoint 移动后的位置
  */
-void Rect::zoomFunction(const Point& a_sPoint, const Point& a_dPoint)
+void Rect::zoomFunction(const Point& sPoint, const Point& dPoint)
 {
 	// 如果靠近起点，将起点设为这个
-	if (a_sPoint.pointAroundPoint(*m_begin, m_nNearLevel))
+	if (sPoint.pointAroundPoint(*m_begin, m_nNearLevel))
 	{
-		setBegin(a_dPoint);
+		setBegin(dPoint);
 	}
 	// 如果靠近终点，把重点设为这个
-	else if (a_sPoint.pointAroundPoint(*m_end, m_nNearLevel)) {
-		setEnd(a_dPoint);
+	else if (sPoint.pointAroundPoint(*m_end, m_nNearLevel)) {
+		setEnd(dPoint);
 	}
 }
 

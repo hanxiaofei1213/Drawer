@@ -11,13 +11,13 @@
 
 class Painter {
 public:
-	Painter(HDC a_hdc);
+	Painter(HDC hdc);
 	virtual ~Painter() {}
 
-	void setHDC(HDC a_hdc) { m_hdc = a_hdc; }
+	void setHDC(HDC hdc) { m_hdc = hdc; }
 
-	void drawLine(int, int, int, int);
-	void drawRect(int, int, int, int);
+	void drawLine(int x1, int y1, int x2, int y2);
+	void drawRect(int x1, int y1, int x2, int y2);
 
 private:
 	HDC m_hdc;

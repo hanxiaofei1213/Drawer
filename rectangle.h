@@ -20,12 +20,12 @@ public:
 	Point* getBegin() { return m_begin; }
 	Point* getEnd() { return m_end; }
 
-	void setBegin(const Point&);
-	void setEnd(const Point&);
+	void setBegin(const Point& begin);
+	void setEnd(const Point& end);
 
-	virtual Shape* checkState(const Point&) override;                 // 判断当前的状态
-	virtual void moveFunction(const Point&, const Point&) override;   // 移动函数
-	virtual void zoomFunction(const Point&, const Point&) override;   // 放大缩小函数
+	virtual Shape* checkState(const Point& checkPoint) override;                 // 判断当前的状态
+	virtual void moveFunction(const Point& sPoint, const Point& dPoint) override;   // 移动函数
+	virtual void zoomFunction(const Point& sPoint, const Point& dPoint) override;   // 放大缩小函数
 	virtual void draw() override;                                     // 将自己画出来
 
 

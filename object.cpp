@@ -3,9 +3,9 @@
 
 #include "event.h"
 
-Object::Object(Object* a_parent) : m_instance(GetModuleHandle(NULL)), m_objectId(0)
+Object::Object(Object* parent) : m_instance(GetModuleHandle(NULL)), m_objectId(0)
 {
-	setParent(a_parent);
+	setParent(parent);
 }
 
 /**
@@ -22,9 +22,9 @@ Object::~Object()
  * @param 子对象
  * @return 返回子对象的唯一id
  */
-int Object::addChild(Object* a_child)
+int Object::addChild(Object* child)
 {
-	m_children.push_back(a_child);
+	m_children.push_back(child);
 	return m_children.size();
 }
 
@@ -33,24 +33,24 @@ int Object::addChild(Object* a_child)
  * @param 父对象的指针
  * @remark B的父对象是A，若C将父对象设为B，则此函数自动将C的父对象转为A
  */
-void Object::setParent(Object* a_parent)      
+void Object::setParent(Object* parent)      
 {         
-	m_parent = a_parent;                        // 指定父对象
-	if (a_parent == NULL)                       // 如果父对象为NULL，则什么也不做，m_parent是默认值NULL
+	m_parent = parent;                        // 指定父对象
+	if (parent == NULL)                       // 如果父对象为NULL，则什么也不做，m_parent是默认值NULL
 		return;
-	else if (a_parent->getParent() != NULL)     // 如果此窗口有父对象，此父对象也有父对象
+	else if (parent->getParent() != NULL)     // 如果此窗口有父对象，此父对象也有父对象
 	{
-		setParent(a_parent->getParent());
+		setParent(parent->getParent());
 	}
 	else {
-		m_objectId = a_parent->addChild(this);  // 将自己添加到父对象的列表中，并设置唯一id
+		m_objectId = parent->addChild(this);  // 将自己添加到父对象的列表中，并设置唯一id
 	}
 }
 
 /**
  * @brief 开启事件循环，负责把事件分发给不同的函数
  */
-bool Object::eventLoop(Event* a_event)
+bool Object::eventLoop(Event* event)
 {
 	return true;
 }

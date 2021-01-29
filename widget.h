@@ -16,16 +16,16 @@ class PaintEvent;
 
 class Widget : public ShowObject {
 public:
-	Widget(ShowObject* a_parent);
+	Widget(ShowObject* parent);
 	virtual ~Widget();
 
-	virtual bool eventLoop(Event*) override;                       // 重写Object的事件循环
+	virtual bool eventLoop(Event* event) override;                       // 重写Object的事件循环
 	
 protected:
-	virtual void mousePressEvent(MouseEvent*);                     // 处理鼠标按下的事件
-	virtual void mouseMoveEvent(MouseEvent*);                      // 处理鼠标移动的事件
-	virtual void mouseReleaseEvent(MouseEvent*);                   // 处理鼠标按下的事件
-	virtual void paintEvent(PaintEvent*);                          // 处理重绘事件
-	virtual void buttonPressEvent(ButtonEvent*);                   // 将按钮按下的事件分发到具体的按钮
+	virtual void mousePressEvent(MouseEvent* event);                     // 处理鼠标按下的事件
+	virtual void mouseMoveEvent(MouseEvent* event);                      // 处理鼠标移动的事件
+	virtual void mouseReleaseEvent(MouseEvent* event);                   // 处理鼠标按下的事件
+	virtual void paintEvent(PaintEvent* event);                          // 处理重绘事件
+	virtual void buttonPressEvent(ButtonEvent* event);                   // 将按钮按下的事件分发到具体的按钮
 
 };

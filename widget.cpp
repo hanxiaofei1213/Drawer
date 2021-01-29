@@ -7,7 +7,7 @@
 
 
 
-Widget::Widget(ShowObject* a_parent) : ShowObject(a_parent, TEXT("Widget"))
+Widget::Widget(ShowObject* parent) : ShowObject(parent, TEXT("Widget"))
 {
 	WNDCLASS wndClass;
 
@@ -53,30 +53,30 @@ Widget::~Widget()
  * @brief 重写父类的事件循环
  * @param a_event 要处理的事件
  */
-bool Widget::eventLoop(Event* a_event)
+bool Widget::eventLoop(Event* event)
 {
-	switch (a_event->getType())
+	switch (event->getType())
 	{
 	case Event::EventType::LBUTTONDOWN:
 	case Event::EventType::RBUTTONDOWN:
-		mousePressEvent(static_cast<MouseEvent*>(a_event));  
+		mousePressEvent(static_cast<MouseEvent*>(event));  
 		break;
 	case Event::EventType::LBUTTONUP:
 	case Event::EventType::RBUTTONUP:
-		mouseReleaseEvent(static_cast<MouseEvent*>(a_event));
+		mouseReleaseEvent(static_cast<MouseEvent*>(event));
 		break;
 	case Event::EventType::MOUSEMOVE:
-		mouseMoveEvent(static_cast<MouseEvent*>(a_event));
+		mouseMoveEvent(static_cast<MouseEvent*>(event));
 		break;
 	case Event::EventType::BUTTON_CLICK:
 	case Event::EventType::BUTTON_DBLCLK:
-		buttonPressEvent(static_cast<ButtonEvent*>(a_event)); 
+		buttonPressEvent(static_cast<ButtonEvent*>(event)); 
 	case Event::EventType::PAINTEVENT:
-		paintEvent(static_cast<PaintEvent*>(a_event));
+		paintEvent(static_cast<PaintEvent*>(event));
 	}
 
 
-	return Object::eventLoop(a_event);
+	return Object::eventLoop(event);
 }
 
 
@@ -84,7 +84,7 @@ bool Widget::eventLoop(Event* a_event)
  * @brief 用来处理鼠标按下的事件
  * @a_event 要处理的事件
  */
-void Widget::mousePressEvent(MouseEvent* a_event)
+void Widget::mousePressEvent(MouseEvent* event)
 {
 	
 }
@@ -93,7 +93,7 @@ void Widget::mousePressEvent(MouseEvent* a_event)
  * @brief 用来处理鼠标移动的事件
  * @a_event 要处理的事件
  */
-void Widget::mouseMoveEvent(MouseEvent*)
+void Widget::mouseMoveEvent(MouseEvent* event)
 {
 }
 
@@ -101,7 +101,7 @@ void Widget::mouseMoveEvent(MouseEvent*)
  * @brief 用来处理鼠标放开的事件
  * @a_event 要处理的事件
  */
-void Widget::mouseReleaseEvent(MouseEvent* a_event)
+void Widget::mouseReleaseEvent(MouseEvent* event)
 {
 	//MessageBox(NULL, TEXT("mouseReleaseEvent"), TEXT("test"), MB_OK);
 }
@@ -111,16 +111,16 @@ void Widget::mouseReleaseEvent(MouseEvent* a_event)
  * @brief 用来处理画图的事件
  * @a_event 要处理的事件
  */
-void Widget::paintEvent(PaintEvent* a_event)
+void Widget::paintEvent(PaintEvent* event)
 {
 }
 
 /**
  * @brief 处理按钮按下的事件
  */
-void Widget::buttonPressEvent(ButtonEvent* a_event)
+void Widget::buttonPressEvent(ButtonEvent* event)
 {
-	switch (a_event->getType())
+	switch (event->getType())
 	{
 	case Event::EventType::BUTTON_CLICK:
 

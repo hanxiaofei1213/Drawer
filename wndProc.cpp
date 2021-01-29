@@ -1,6 +1,7 @@
 #include "wndProc.h"
 
 #include "eventLoop.h"
+#include "event.h"
 
 /**
  * @brief 开启消息循环
@@ -24,11 +25,13 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 	static EventLoop eventloop;    
 	PAINTSTRUCT ps;
 
-	eventloop.packageMessage(hwnd, message, wParam, lParam, &ps);
+	Event* tosendEvent = eventloop.packageMessage(hwnd, message, wParam, lParam, &ps);
 
 	// 如果自己处理了，那就不需要调用系统默认窗口处理函数
-	if (eventloop.event())
+	if (eventloop.event(tosendEvent))
 		return 0;
+	delete tosendEvent;
+
 	return DefWindowProc(hwnd, message, wParam, lParam);
 }
 

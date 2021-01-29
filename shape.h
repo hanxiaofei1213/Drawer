@@ -24,13 +24,13 @@ public:
 	StateType getState() { return m_state; }                    // 获取当前状态
 	ShapeType getShape() { return m_shapeType; }                // 获取当前形状
 
-	void setHDC(HDC a_hdc);                                     // 设置HDC
-	void setState(StateType a_state) { m_state = a_state; }     // 设置当前状态
-	void setShape(ShapeType a_shape) { m_shapeType = a_shape; } // 当前形状
+	void setHDC(HDC hdc);                                       // 设置HDC
+	void setState(StateType state) { m_state = state; }         // 设置当前状态
+	void setShape(ShapeType shape) { m_shapeType = shape; }     // 当前形状
  
-	virtual Shape* checkState(const Point&) = 0;                // 检查自己是否被选中
-	virtual void moveFunction(const Point&, const Point&) = 0;  // 移动函数
-	virtual void zoomFunction(const Point&, const Point&) = 0;  // 放大缩小函数
+	virtual Shape* checkState(const Point& checkPoint) = 0;     // 检查自己是否被选中
+	virtual void moveFunction(const Point& sPoint, const Point& dPoint) = 0;  // 移动函数
+	virtual void zoomFunction(const Point& sPoint, const Point& dPoint) = 0;  // 放大缩小函数
 	virtual void draw() = 0;                                    // 将自己画出来
 
 

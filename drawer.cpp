@@ -119,14 +119,14 @@ void Drawer::drawAll()
  * @param a_event 事件
  * @remark 这里创建的对象
  */
-void Drawer::mousePressEvent(MouseEvent* a_event)
+void Drawer::mousePressEvent(MouseEvent* event)
 {
-	if (a_event->getButtonType() != MouseEvent::ButtonType::LEFTBUTTON)
+	if (event->getButtonType() != MouseEvent::ButtonType::LEFTBUTTON)
 		return;  
 
 	// 获取鼠标开始的点
-	m_beginPoint->setX(a_event->getPos()->x());
-	m_beginPoint->setY(a_event->getPos()->y());
+	m_beginPoint->setX(event->getPos()->x());
+	m_beginPoint->setY(event->getPos()->y());
 
 	switch (m_shapeType)
 	{
@@ -156,17 +156,17 @@ void Drawer::mousePressEvent(MouseEvent* a_event)
 /**
  * @brief 处理按钮移动事件
  */
-void Drawer::mouseMoveEvent(MouseEvent* a_event)
+void Drawer::mouseMoveEvent(MouseEvent* event)
 {
 	// 如果不是鼠标左键按下，不处理
-	if (a_event->getButtonType() != MouseEvent::ButtonType::LEFTBUTTON)
+	if (event->getButtonType() != MouseEvent::ButtonType::LEFTBUTTON)
 		return;
 
 	// 如果没选择任何shape，则不处理
 	if (!m_tempShape)
 		return;
 	
-	Point endPoint(a_event->getPos()->x(), a_event->getPos()->y());
+	Point endPoint(event->getPos()->x(), event->getPos()->y());
 	switch (m_shapeType)
 	{
 	// 工具栏为arrow模式
@@ -200,9 +200,9 @@ void Drawer::mouseMoveEvent(MouseEvent* a_event)
 /**
  * @brief 处理按钮放开事件
  */
-void Drawer::mouseReleaseEvent(MouseEvent* a_event)
+void Drawer::mouseReleaseEvent(MouseEvent* event)
 {
-	if (a_event->getButtonType() != MouseEvent::ButtonType::LEFTBUTTON)
+	if (event->getButtonType() != MouseEvent::ButtonType::LEFTBUTTON)
 		return;
 
 	// 如果当前shape为空，则不处理
@@ -226,7 +226,7 @@ void Drawer::mouseReleaseEvent(MouseEvent* a_event)
 /**
  * @brief 处理重绘事件
  */
-void Drawer::paintEvent(PaintEvent* a_event)
+void Drawer::paintEvent(PaintEvent* event)
 {
 	drawAll();
 }
@@ -234,9 +234,9 @@ void Drawer::paintEvent(PaintEvent* a_event)
 /**
  * @brief 处理按钮按下事件
  */
-void Drawer::buttonPressEvent(ButtonEvent* a_event)
+void Drawer::buttonPressEvent(ButtonEvent* event)
 {
-	int eventBtnId = a_event->getBtnId();
+	int eventBtnId = event->getBtnId();
 
 	if (m_arrowBBtn->getObjectId() == eventBtnId)
 	{
@@ -259,12 +259,12 @@ void Drawer::buttonPressEvent(ButtonEvent* a_event)
  * @return 如果有shape被选中，返回其指针
  * @remark 可能会有很多图形都会被选中，但只选择最后一个，因为最后一个往往在最上面
  */
-Shape* Drawer::checkAllShapeState(const Point& a_point)
+Shape* Drawer::checkAllShapeState(const Point& point)
 {
 	Shape* shape = nullptr;
 	for (int i = m_shapeList.size() - 1; i >= 0; --i)
 	{
-		shape = m_shapeList[i]->checkState(a_point);
+		shape = m_shapeList[i]->checkState(point);
 		if (shape)
 			return shape;
 	}

@@ -1,24 +1,24 @@
 #include "point.h"
 
 // 移动构造函数
-Point::Point(Point&& a_point) noexcept
+Point::Point(Point&& point) noexcept
 {
-	m_nx = a_point.x();
-	m_ny = a_point.y();
+	m_nx = point.x();
+	m_ny = point.y();
 
-	a_point.setX(0);
-	a_point.setY(0);
+	point.setX(0);
+	point.setY(0);
 
 }
 
 // 移动运算符
-Point& Point::operator=(Point&& a_point) noexcept
+Point& Point::operator=(Point&& point) noexcept
 {
-	m_nx = a_point.x();
-	m_ny = a_point.y();
+	m_nx = point.x();
+	m_ny = point.y();
 
-	a_point.setX(0);
-	a_point.setY(0);
+	point.setX(0);
+	point.setY(0);
 	return *this;
 }
 
@@ -26,11 +26,11 @@ Point& Point::operator=(Point&& a_point) noexcept
  * @brief 两点相加
  * @param a_point 另一个点
  */
-Point Point::addPoint(const Point& a_point) const
+Point Point::addPoint(const Point& point) const
 {
 	Point p;
-	p.setX(m_nx + a_point.x());
-	p.setY(m_ny + a_point.y());
+	p.setX(m_nx + point.x());
+	p.setY(m_ny + point.y());
 	return p;   // 移动语义
 }
 
@@ -38,11 +38,11 @@ Point Point::addPoint(const Point& a_point) const
  * @brief 两点相减
  * @param a_point 另一个点
  */
-Point Point::minusPoint(const Point& a_point) const
+Point Point::minusPoint(const Point& point) const
 {
 	Point p;
-	p.setX(m_nx - a_point.x());
-	p.setY(m_ny - a_point.y());
+	p.setX(m_nx - point.x());
+	p.setY(m_ny - point.y());
 	return p;   // 移动语义
 }
 
@@ -51,9 +51,9 @@ Point Point::minusPoint(const Point& a_point) const
  * @param a_point 另一个点
  * @return true相等，false不相等
  */
-bool Point::equalPoint(const Point& a_point) const
+bool Point::equalPoint(const Point& point) const
 {
-	if (this->m_nx == a_point.m_nx && this->m_ny == a_point.m_ny)
+	if (this->m_nx == point.m_nx && this->m_ny == point.m_ny)
 		return true;
 	return false;
 }
@@ -65,12 +65,12 @@ bool Point::equalPoint(const Point& a_point) const
  * @param a_level 近的程度，这里就是两点之间的距离
  * @return true表示接近，false则相反
  */
-bool Point::pointAroundPoint(const Point& a_p1, int a_level) const
+bool Point::pointAroundPoint(const Point& p1, int level) const
 {
-	Point diffPoint = this->minusPoint(a_p1);
+	Point diffPoint = this->minusPoint(p1);
 
 	// 如果两点之差在a_level容忍之间，则表示接近
-	if (std::abs(diffPoint.x()) < a_level && std::abs(diffPoint.y()) < a_level)
+	if (std::abs(diffPoint.x()) < level && std::abs(diffPoint.y()) < level)
 		return true;
 	return false;
 }
@@ -83,27 +83,27 @@ bool Point::pointAroundPoint(const Point& a_p1, int a_level) const
  * @param a_level 近的程度，这里就是点到直线的距离
  * @return true表示接近，false则相反
  */
-bool Point::pointAroundLine(const Point& a_lineBegin, const Point& a_lineEnd, int a_level) const
+bool Point::pointAroundLine(const Point& lineBegin, const Point& lineEnd, int level) const
 {
 	// 计算两点之差
-	Point diffPoint = a_lineEnd.minusPoint(a_lineBegin);
+	Point diffPoint = lineEnd.minusPoint(lineBegin);
 
 	// 计算斜率和截距，注意除数为0的情况
 	double k = 0;
 	if (diffPoint.x() != 0)
 		k = (double)diffPoint.y() / diffPoint.x();
-	double b = a_lineBegin.y() - k * a_lineBegin.x();
+	double b = lineBegin.y() - k * lineBegin.x();
 
 	// 点到直线距离
 	double distance = std::abs(k * this->x() - this->y() + b) / std::sqrt(k * k + 1);
 
 	// 距离太大
-	if (distance > a_level)
+	if (distance > level)
 		return false;
 	// 距离合适，但是在延长线上
-	else if (this->x() < a_lineBegin.x() && this->x() < a_lineEnd.x())
+	else if (this->x() < lineBegin.x() && this->x() < lineEnd.x())
 		return false;
-	else if (this->x() > a_lineBegin.x() && this->x() > a_lineEnd.x())
+	else if (this->x() > lineBegin.x() && this->x() > lineEnd.x())
 		return false;
 
 	// 距离合适，并且不在延长线上

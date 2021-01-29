@@ -19,16 +19,16 @@ public:
 	Drawer();
 	virtual ~Drawer();
 	 
-	void init();                                                 // 一些初始化
-	virtual void drawAll();                                      // 将所有shape画到内存画板，一次性显示
+	void init();                                                       // 一些初始化
+	virtual void drawAll();                                            // 将所有shape画到内存画板，一次性显示
 
 protected:
-	virtual void mousePressEvent(MouseEvent*) override;          // 处理鼠标按下的事件
-	virtual void mouseMoveEvent(MouseEvent*) override;           // 处理鼠标移动的事件
-	virtual void mouseReleaseEvent(MouseEvent*) override;        // 处理鼠标按下的事件
-	virtual void paintEvent(PaintEvent*) override;               // 处理重绘事件
-	virtual void buttonPressEvent(ButtonEvent*) override;        // 将按钮按下的事件分发到具体的按钮
-	virtual Shape* checkAllShapeState(const Point&);             // 检查所有shape的状态
+	virtual void mousePressEvent(MouseEvent* event) override;          // 处理鼠标按下的事件
+	virtual void mouseMoveEvent(MouseEvent* event) override;           // 处理鼠标移动的事件
+	virtual void mouseReleaseEvent(MouseEvent* event) override;        // 处理鼠标按下的事件
+	virtual void paintEvent(PaintEvent* event) override;               // 处理重绘事件
+	virtual void buttonPressEvent(ButtonEvent* event) override;        // 将按钮按下的事件分发到具体的按钮
+	virtual Shape* checkAllShapeState(const Point& point);             // 检查所有shape的状态
 
 private:
 	ToolBar* m_toolbar;                     // 工具栏

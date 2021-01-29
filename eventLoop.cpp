@@ -12,7 +12,7 @@
  */
 EventLoop::EventLoop()
 {
-	m_event = nullptr;
+	
 }
 
 /**
@@ -20,8 +20,7 @@ EventLoop::EventLoop()
  */
 EventLoop::~EventLoop()
 {
-	if (m_event)
-		delete m_event;
+	
 }
 
 /**
@@ -29,12 +28,8 @@ EventLoop::~EventLoop()
  */
 Event* EventLoop::packageMessage(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam, PAINTSTRUCT* ps)
 {
-	// 将m_event内存释放掉
-	if (m_event)
-	{
-		delete m_event;
-		m_event = nullptr;
-	}
+	// 将要发送的事件
+	Event* toSendEvent = nullptr;
 
 	// 分配消息
 	switch (message)
@@ -44,13 +39,13 @@ Event* EventLoop::packageMessage(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
 	case WM_LBUTTONUP:
 	case WM_RBUTTONUP:
 	case WM_MOUSEMOVE:
-		m_event = packageMouseMsg(hwnd, message, wParam, lParam);
+		toSendEvent = packageMouseMsg(hwnd, message, wParam, lParam);
 		break;
 	case WM_COMMAND:
-		m_event = packageBtnMsg(hwnd, message, wParam, lParam);
+		toSendEvent = packageBtnMsg(hwnd, message, wParam, lParam);
 		break;
 	case WM_PAINT:
-		m_event = packagePaintMsg(hwnd, ps);
+		toSendEvent = packagePaintMsg(hwnd, ps);
 		break;
 	case TB_SETBUTTONINFO:
 		MessageBox(NULL, TEXT("TB_SETBUTTONINFO"), TEXT("test"), MB_OK);
@@ -60,21 +55,21 @@ Event* EventLoop::packageMessage(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
 		break;
 	}
 
-	return m_event;
+	return toSendEvent;
 }
 
 /**
  * @brief 将事件分发出去
  */
-bool EventLoop::event()
+bool EventLoop::event(Event* toSendEvent)
 {
-	// 如果m_event为空，则说明这个消息不是我们要处理的，交给系统即可
-	if (!m_event)
+	// 如果toSendEvent为空，则说明这个消息不是我们要处理的，交给系统即可
+	if (!toSendEvent)
 		return false;
 
 	// 把事件交给目的对象的eventLoop函数
-	Object* destObj = m_event->getDestObject();
-	return destObj->eventLoop(m_event);
+	Object* destObj = toSendEvent->getDestObject();
+	return destObj->eventLoop(toSendEvent);
 }
 
 /**
@@ -82,9 +77,9 @@ bool EventLoop::event()
  * @param a_hwnd 窗口过程函数中的窗口句柄
  * @return 目的对象
  */
-Object* EventLoop::calculateDestObject(HWND a_hwnd)
+Object* EventLoop::calculateDestObject(HWND hwnd)
 {
-	Object* obj = (Object*)GetWindowLongPtr(a_hwnd, GWL_USERDATA);
+	Object* obj = (Object*)GetWindowLongPtr(hwnd, GWL_USERDATA);
 	if (obj == NULL)
 	{
 		MessageBox(NULL, TEXT("EventLoop::calculateDestObject fail!"), TEXT("Error"), MB_OK | MB_ICONEXCLAMATION);
@@ -98,7 +93,7 @@ Object* EventLoop::calculateDestObject(HWND a_hwnd)
  * @brief 将鼠标消息打包成事件
  * 
  */
-MouseEvent* EventLoop::packageMouseMsg(HWND a_hwnd, UINT message, WPARAM wParam, LPARAM lParam)
+MouseEvent* EventLoop::packageMouseMsg(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	
 	MouseEvent* event = new MouseEvent;
@@ -133,14 +128,14 @@ MouseEvent* EventLoop::packageMouseMsg(HWND a_hwnd, UINT message, WPARAM wParam,
 			event->setButtonType(MouseEvent::ButtonType::RIGHTBUTTON);
 			break;
 		default:
-			DefWindowProc(a_hwnd, message, wParam, lParam);
+			DefWindowProc(hwnd, message, wParam, lParam);
 			break;
 		}
 		break;
 	}
 
 	event->setPos(LOWORD(lParam), HIWORD(lParam));
-	event->setDestObject(calculateDestObject(a_hwnd));
+	event->setDestObject(calculateDestObject(hwnd));
 	return event;
 }
 
@@ -148,7 +143,7 @@ MouseEvent* EventLoop::packageMouseMsg(HWND a_hwnd, UINT message, WPARAM wParam,
 /**
  * @brief 将按钮消息打包成事件
  */
-ButtonEvent* EventLoop::packageBtnMsg(HWND a_hwnd, UINT message, WPARAM wParam, LPARAM lParam)
+ButtonEvent* EventLoop::packageBtnMsg(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	ButtonEvent* event = new ButtonEvent;
 	int type = HIWORD(wParam);
@@ -164,11 +159,11 @@ ButtonEvent* EventLoop::packageBtnMsg(HWND a_hwnd, UINT message, WPARAM wParam, 
 		event->setEventType(Event::EventType::BUTTON_DBLCLK);
 		break;
 	default:    
-		DefWindowProc(a_hwnd, message, wParam, lParam);
+		DefWindowProc(hwnd, message, wParam, lParam);
 		break;
 	}
 	event->setBtnId(id);
-	event->setDestObject(calculateDestObject(a_hwnd));
+	event->setDestObject(calculateDestObject(hwnd));
 	return event;
 }
 
@@ -176,11 +171,11 @@ ButtonEvent* EventLoop::packageBtnMsg(HWND a_hwnd, UINT message, WPARAM wParam, 
 /**
  * @brief 将重绘消息打包成事件
  */
-PaintEvent* EventLoop::packagePaintMsg(HWND a_hwnd, PAINTSTRUCT* a_ps)
+PaintEvent* EventLoop::packagePaintMsg(HWND hwnd, PAINTSTRUCT* ps)
 {
-	PaintEvent* event = new PaintEvent(a_hwnd, a_ps);
+	PaintEvent* event = new PaintEvent(hwnd, ps);
 	event->setEventType(Event::EventType::PAINTEVENT);
-	event->setDestObject(calculateDestObject(a_hwnd));
+	event->setDestObject(calculateDestObject(hwnd));
 	return event;
 }
 

@@ -17,7 +17,7 @@ class ButtonEvent;
 class ShowObject : public Object{
 
 public:
-	ShowObject(ShowObject*, LPCTSTR);
+	ShowObject(ShowObject* parent, LPCTSTR className);
 	virtual ~ShowObject();
 
 	// set方法
@@ -25,7 +25,7 @@ public:
 	void move(Point* a_loc);                                       // 移动窗口位置
 	void move(int a_x, int a_y);                                   // 移动窗口位置
 	void resize(int a_width, int a_height);                        // 设置大小
-	void setNowHwnd(HWND);                                         // 设置当前的句柄
+	void setNowHwnd(HWND hwnd);                                    // 设置当前的句柄
 
 	// get方法
 	HWND getHwnd() { return m_hwnd; }                              // 返回当前窗口窗口句柄	
@@ -37,11 +37,11 @@ public:
 	HWND getParentHwnd() { return m_parentHwnd; }                  // 返回父对象句柄
 
 	std::vector<ShowObject*>& getShowList();                       // 返回展示列表
-	void addShowList(ShowObject*);                                 // 添加到展示列表中
+	void addShowList(ShowObject* object);                          // 添加到展示列表中
 
 	virtual void show();                                           // 显示这个窗口
 
-	virtual bool eventLoop(Event*) override;                       // 重写Object的事件循环
+	virtual bool eventLoop(Event* event) override;                 // 重写Object的事件循环
 
 private:
 	LPCTSTR m_className;           // 窗口类的名称，自定义或系统注册好的

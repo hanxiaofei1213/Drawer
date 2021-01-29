@@ -14,7 +14,7 @@
 
 class PaintEvent : public Event {
 public:
-	PaintEvent(HWND, PAINTSTRUCT*);
+	PaintEvent(HWND hwnd, PAINTSTRUCT* ps);
 	virtual ~PaintEvent();
 
 	HDC getHDC() { return m_hdc; }                       // 获取绘图HDC
@@ -22,7 +22,7 @@ public:
 private:
 	HDC m_hdc;                                           // 绘图用HDC
 	HWND m_hwnd;                                         // 句柄
-	PAINTSTRUCT* m_ps;                                    // 结构体
+	PAINTSTRUCT* m_ps;                                   // 结构体
 };
 
 

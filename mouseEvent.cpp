@@ -20,8 +20,8 @@ MouseEvent::~MouseEvent()
  * @param a_nx 鼠标x坐标
  * @param a_ny 鼠标y坐标
  */
-void MouseEvent::setPos(int a_nx, int a_ny)
+void MouseEvent::setPos(int nx, int ny)
 {
-	m_mosPos->setX(a_nx);
-	m_mosPos->setY(a_ny);
+	m_mosPos->setX(nx);
+	m_mosPos->setY(ny);
 }

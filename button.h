@@ -11,7 +11,7 @@
 class Button : public ShowObject
 {
 public:
-	Button(ShowObject*);
+	Button(ShowObject* parent);
 	virtual ~Button();
 };
 

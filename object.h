@@ -19,16 +19,16 @@ class Event;
 
 class Object {
 public:
-	Object(Object*);
+	Object(Object* parent);
 	virtual ~Object();
 
-	virtual int addChild(Object*);                      // 添加子对象
+	virtual int addChild(Object* child);                // 添加子对象
 	HINSTANCE getInstance() { return m_instance; }      // 返回当前实例
 	int getObjectId() { return m_objectId; }            // 返回唯一id 
 	Object* getParent() { return m_parent; }            // 获得父对象
 	void setParent(Object* a_parent);                   // 设置父对象
 
-	virtual bool eventLoop(Event*);                     // 事件循环，负责派发事件
+	virtual bool eventLoop(Event* event);               // 事件循环，负责派发事件
 
 private:
 	Object* m_parent;                                   // 父控件

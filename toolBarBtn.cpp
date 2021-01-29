@@ -2,7 +2,7 @@
 
 #include "toolBar.h"
 
-ToolbarBtn::ToolbarBtn(ToolBar* a_parent) : Object(a_parent)
+ToolbarBtn::ToolbarBtn(ToolBar* parent) : Object(parent)
 {
 	m_bitmap = I_IMAGENONE;
 	m_state = TBSTATE_ENABLED;
@@ -11,8 +11,8 @@ ToolbarBtn::ToolbarBtn(ToolBar* a_parent) : Object(a_parent)
 	m_tbbutton = { m_bitmap, getObjectId(), m_state, m_style, {0}, 0, m_string };
 
 	// 在工具栏中添加自己
-	m_toolbar = a_parent;
-	a_parent->addTBButton(this);
+	m_toolbar = parent;
+	parent->addTBButton(this);
 }
 
 
@@ -25,9 +25,8 @@ ToolbarBtn::~ToolbarBtn()
  * @param a_text 名字
  * @param a_toolbarHwnd 包含此工具栏按钮的窗口句柄
  */
-void ToolbarBtn::setText(LPCTSTR a_text)
+void ToolbarBtn::setText(LPCTSTR text)
 {
-	LPTSTR text = (LPTSTR)a_text;
-	TBBUTTONINFO info = { sizeof(TBBUTTONINFO), TBIF_TEXT, 0, 0, 0, 0, 0, 0, text, sizeof(text) };
+	TBBUTTONINFO info = { sizeof(TBBUTTONINFO), TBIF_TEXT, 0, 0, 0, 0, 0, 0, (LPTSTR)text, sizeof(text) };
 	SendMessage(m_toolbar->getHwnd(), TB_SETBUTTONINFO, getObjectId(), (LPARAM)&info);
 }

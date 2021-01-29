@@ -1,9 +1,9 @@
 #include "paintEvent.h"
 
-PaintEvent::PaintEvent(HWND a_hwnd, PAINTSTRUCT *a_ps)
+PaintEvent::PaintEvent(HWND hwnd, PAINTSTRUCT *ps)
 {
-	m_hwnd = a_hwnd;
-	m_ps = a_ps;
+	m_hwnd = hwnd;
+	m_ps = ps;
 	m_hdc = BeginPaint(m_hwnd, m_ps);
 }
 
