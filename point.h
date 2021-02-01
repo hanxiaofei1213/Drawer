@@ -33,6 +33,6 @@ public:
 	
 
 private:
-	int m_nx;
-	int m_ny;
+	int m_nx = 0;
+	int m_ny = 0;
 };

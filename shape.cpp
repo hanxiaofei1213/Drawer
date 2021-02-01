@@ -2,8 +2,7 @@
 #include "shape.h"
 
 // 构造函数
-Shape::Shape(HDC hdc)
-{
+Shape::Shape(HDC hdc) {
 	m_hdc = hdc;
 	m_painter = new Painter(m_hdc);
 	m_state = StateType::NOMAL;
@@ -11,13 +10,11 @@ Shape::Shape(HDC hdc)
 }
 
 // 析构函数
-Shape::~Shape()
-{
+Shape::~Shape() {
 	delete m_painter;
 }
 
-void Shape::setHDC(HDC hdc)
-{
+void Shape::setHDC(HDC hdc) {
 	m_hdc = hdc;
 	m_painter->setHDC(hdc);
 }

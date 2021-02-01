@@ -5,8 +5,7 @@
 
 #include "toolBarBtn.h"
 
-ToolBar::ToolBar(ShowObject* parent) : ShowObject(parent, TOOLBARCLASSNAME)
-{
+ToolBar::ToolBar(ShowObject* parent) : ShowObject(parent, TOOLBARCLASSNAME) {
 	// 创建工具栏
 	HWND nowhwnd = CreateWindowEx(
 		0,
@@ -30,8 +29,7 @@ ToolBar::ToolBar(ShowObject* parent) : ShowObject(parent, TOOLBARCLASSNAME)
  * @brief 将工具栏按钮添加到工具栏
  * @param 要添加的工具栏按钮
  */
-void ToolBar::addTBButton(ToolbarBtn* boolbarBtn)
-{
+void ToolBar::addTBButton(ToolbarBtn* boolbarBtn) {
 	HWND hwnd = getHwnd();
 	SendMessage(hwnd, TB_BUTTONSTRUCTSIZE, (WPARAM)sizeof(TBBUTTON), 0);
 	SendMessage(hwnd, TB_ADDBUTTONS, (WPARAM)1, (LPARAM)&boolbarBtn->getTBButton());

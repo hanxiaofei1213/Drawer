@@ -31,9 +31,9 @@ public:
 	virtual bool eventLoop(Event* event);               // 事件循环，负责派发事件
 
 private:
-	Object* m_parent;                                   // 父控件
+	Object* m_parent = nullptr;                         // 父控件
 	std::vector<Object*> m_children;                    // 子控件列表，用来管理内存释放和提供唯一id
-	HINSTANCE m_instance;                               // 当前的进程实例
-	int m_objectId;                                     // 每个控件的唯一id
+	HINSTANCE m_instance = GetModuleHandle(NULL);       // 当前的进程实例
+	int m_objectId = 0;                                 // 每个控件的唯一id
 };
 

@@ -10,30 +10,26 @@
 /**
  * @brief 初始化属性
  */
-EventLoop::EventLoop()
-{
+EventLoop::EventLoop() {
 	
 }
 
 /**
  * @brief 释放资源
  */
-EventLoop::~EventLoop()
-{
+EventLoop::~EventLoop() {
 	
 }
 
 /**
  * @brief 将消息打包成事件
  */
-Event* EventLoop::packageMessage(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam, PAINTSTRUCT* ps)
-{
+Event* EventLoop::packageMessage(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam, PAINTSTRUCT* ps) {
 	// 将要发送的事件
 	Event* toSendEvent = nullptr;
 
 	// 分配消息
-	switch (message)
-	{
+	switch (message) {
 	case WM_LBUTTONDOWN:
 	case WM_RBUTTONDOWN:
 	case WM_LBUTTONUP:
@@ -61,8 +57,7 @@ Event* EventLoop::packageMessage(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
 /**
  * @brief 将事件分发出去
  */
-bool EventLoop::event(Event* toSendEvent)
-{
+bool EventLoop::event(Event* toSendEvent) {
 	// 如果toSendEvent为空，则说明这个消息不是我们要处理的，交给系统即可
 	if (!toSendEvent)
 		return false;
@@ -77,11 +72,9 @@ bool EventLoop::event(Event* toSendEvent)
  * @param a_hwnd 窗口过程函数中的窗口句柄
  * @return 目的对象
  */
-Object* EventLoop::calculateDestObject(HWND hwnd)
-{
+Object* EventLoop::calculateDestObject(HWND hwnd) {
 	Object* obj = (Object*)GetWindowLongPtr(hwnd, GWL_USERDATA);
-	if (obj == NULL)
-	{
+	if (obj == NULL) {
 		MessageBox(NULL, TEXT("EventLoop::calculateDestObject fail!"), TEXT("Error"), MB_OK | MB_ICONEXCLAMATION);
 		exit(0);
 	}
@@ -93,13 +86,11 @@ Object* EventLoop::calculateDestObject(HWND hwnd)
  * @brief 将鼠标消息打包成事件
  * 
  */
-MouseEvent* EventLoop::packageMouseMsg(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
-{
+MouseEvent* EventLoop::packageMouseMsg(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) {
 	
 	MouseEvent* event = new MouseEvent;
 
-	switch (message)
-	{
+	switch (message) {
 	case WM_LBUTTONDOWN:
 		event->setEventType(Event::EventType::LBUTTONDOWN);
 		event->setButtonType(MouseEvent::ButtonType::LEFTBUTTON);
@@ -119,8 +110,7 @@ MouseEvent* EventLoop::packageMouseMsg(HWND hwnd, UINT message, WPARAM wParam, L
 	case WM_MOUSEMOVE:
 		// TODO: 这个多个鼠标同时按下，难顶哎
 		event->setEventType(Event::EventType::MOUSEMOVE);
-		switch (wParam)
-		{
+		switch (wParam) {
 		case MK_LBUTTON:
 			event->setButtonType(MouseEvent::ButtonType::LEFTBUTTON);
 			break;
@@ -143,15 +133,13 @@ MouseEvent* EventLoop::packageMouseMsg(HWND hwnd, UINT message, WPARAM wParam, L
 /**
  * @brief 将按钮消息打包成事件
  */
-ButtonEvent* EventLoop::packageBtnMsg(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
-{
+ButtonEvent* EventLoop::packageBtnMsg(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) {
 	ButtonEvent* event = new ButtonEvent;
 	int type = HIWORD(wParam);
 	int id = LOWORD(wParam);
 
 	// FixMe: 那个菜单和快捷键好像和这个冲突，怎么回事？
-	switch (type)
-	{
+	switch (type) {
 	case BN_CLICKED:  // 单击事件
 		event->setEventType(Event::EventType::BUTTON_CLICK);
 		break;
@@ -171,8 +159,7 @@ ButtonEvent* EventLoop::packageBtnMsg(HWND hwnd, UINT message, WPARAM wParam, LP
 /**
  * @brief 将重绘消息打包成事件
  */
-PaintEvent* EventLoop::packagePaintMsg(HWND hwnd, PAINTSTRUCT* ps)
-{
+PaintEvent* EventLoop::packagePaintMsg(HWND hwnd, PAINTSTRUCT* ps) {
 	PaintEvent* event = new PaintEvent(hwnd, ps);
 	event->setEventType(Event::EventType::PAINTEVENT);
 	event->setDestObject(calculateDestObject(hwnd));

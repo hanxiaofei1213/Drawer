@@ -5,10 +5,7 @@
 #include "buttonEvent.h"
 #include "paintEvent.h"
 
-
-
-Widget::Widget(ShowObject* parent) : ShowObject(parent, TEXT("Widget"))
-{
+Widget::Widget(ShowObject* parent) : ShowObject(parent, TEXT("Widget")) {
 	WNDCLASS wndClass;
 
 	// 构造窗口结构体
@@ -43,8 +40,7 @@ Widget::Widget(ShowObject* parent) : ShowObject(parent, TEXT("Widget"))
 	SetWindowLongPtr(nowHwnd, GWL_USERDATA, reinterpret_cast<LONG_PTR>(this));
 }
 
-Widget::~Widget()
-{
+Widget::~Widget() {
 	
 }
 
@@ -53,10 +49,8 @@ Widget::~Widget()
  * @brief 重写父类的事件循环
  * @param a_event 要处理的事件
  */
-bool Widget::eventLoop(Event* event)
-{
-	switch (event->getType())
-	{
+bool Widget::eventLoop(Event* event) {
+	switch (event->getType()) {
 	case Event::EventType::LBUTTONDOWN:
 	case Event::EventType::RBUTTONDOWN:
 		mousePressEvent(static_cast<MouseEvent*>(event));  
@@ -84,8 +78,7 @@ bool Widget::eventLoop(Event* event)
  * @brief 用来处理鼠标按下的事件
  * @a_event 要处理的事件
  */
-void Widget::mousePressEvent(MouseEvent* event)
-{
+void Widget::mousePressEvent(MouseEvent* event) {
 	
 }
 
@@ -93,16 +86,15 @@ void Widget::mousePressEvent(MouseEvent* event)
  * @brief 用来处理鼠标移动的事件
  * @a_event 要处理的事件
  */
-void Widget::mouseMoveEvent(MouseEvent* event)
-{
+void Widget::mouseMoveEvent(MouseEvent* event) {
+
 }
 
 /**
  * @brief 用来处理鼠标放开的事件
  * @a_event 要处理的事件
  */
-void Widget::mouseReleaseEvent(MouseEvent* event)
-{
+void Widget::mouseReleaseEvent(MouseEvent* event) {
 	//MessageBox(NULL, TEXT("mouseReleaseEvent"), TEXT("test"), MB_OK);
 }
 
@@ -111,23 +103,15 @@ void Widget::mouseReleaseEvent(MouseEvent* event)
  * @brief 用来处理画图的事件
  * @a_event 要处理的事件
  */
-void Widget::paintEvent(PaintEvent* event)
-{
+void Widget::paintEvent(PaintEvent* event) {
+
 }
 
 /**
  * @brief 处理按钮按下的事件
  */
-void Widget::buttonPressEvent(ButtonEvent* event)
-{
-	switch (event->getType())
-	{
-	case Event::EventType::BUTTON_CLICK:
+void Widget::buttonPressEvent(ButtonEvent* event) {
 
-		break;
-	default:
-		break;
-	}
 }
 
 

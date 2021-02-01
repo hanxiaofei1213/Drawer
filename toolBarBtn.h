@@ -24,11 +24,11 @@ public:
 	void setText(LPCTSTR text);               // 设置工具栏按钮的文本
 
 private:
-	int m_bitmap;                             // 按钮的位图
-	BYTE m_state;                             // 位图的状态
-	BYTE m_style;                             // 位图风格
-	INT_PTR m_string;                         // 按钮的文字
-	TBBUTTON  m_tbbutton;                     // 保存工具栏按钮
-	ToolBar* m_toolbar;                       // 保存存放自己的工具栏
+	int m_bitmap = I_IMAGENONE;               // 按钮的位图
+	BYTE m_state = TBSTATE_ENABLED;           // 位图的状态
+	BYTE m_style = BTNS_AUTOSIZE;             // 位图风格
+	INT_PTR m_string = (INT_PTR)L"tbb";       // 按钮的文字
+	TBBUTTON  m_tbbutton = { m_bitmap, getObjectId(), m_state, m_style, {0}, 0, m_string };  // 保存工具栏按钮
+	ToolBar* m_toolbar = nullptr;             // 保存存放自己的工具栏
 };
 

@@ -20,7 +20,7 @@ public:
 	void drawRect(int x1, int y1, int x2, int y2);
 
 private:
-	HDC m_hdc;
+	HDC m_hdc = nullptr;
 };
 
 

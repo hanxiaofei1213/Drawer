@@ -1,19 +1,16 @@
 #include "point.h"
 
 // 移动构造函数
-Point::Point(Point&& point) noexcept
-{
+Point::Point(Point&& point) noexcept {
 	m_nx = point.x();
 	m_ny = point.y();
 
 	point.setX(0);
 	point.setY(0);
-
 }
 
 // 移动运算符
-Point& Point::operator=(Point&& point) noexcept
-{
+Point& Point::operator=(Point&& point) noexcept {
 	m_nx = point.x();
 	m_ny = point.y();
 
@@ -26,8 +23,7 @@ Point& Point::operator=(Point&& point) noexcept
  * @brief 两点相加
  * @param a_point 另一个点
  */
-Point Point::addPoint(const Point& point) const
-{
+Point Point::addPoint(const Point& point) const {
 	Point p;
 	p.setX(m_nx + point.x());
 	p.setY(m_ny + point.y());
@@ -38,8 +34,7 @@ Point Point::addPoint(const Point& point) const
  * @brief 两点相减
  * @param a_point 另一个点
  */
-Point Point::minusPoint(const Point& point) const
-{
+Point Point::minusPoint(const Point& point) const {
 	Point p;
 	p.setX(m_nx - point.x());
 	p.setY(m_ny - point.y());
@@ -51,8 +46,7 @@ Point Point::minusPoint(const Point& point) const
  * @param a_point 另一个点
  * @return true相等，false不相等
  */
-bool Point::equalPoint(const Point& point) const
-{
+bool Point::equalPoint(const Point& point) const {
 	if (this->m_nx == point.m_nx && this->m_ny == point.m_ny)
 		return true;
 	return false;
@@ -65,8 +59,7 @@ bool Point::equalPoint(const Point& point) const
  * @param a_level 近的程度，这里就是两点之间的距离
  * @return true表示接近，false则相反
  */
-bool Point::pointAroundPoint(const Point& p1, int level) const
-{
+bool Point::pointAroundPoint(const Point& p1, int level) const {
 	Point diffPoint = this->minusPoint(p1);
 
 	// 如果两点之差在a_level容忍之间，则表示接近
@@ -83,8 +76,8 @@ bool Point::pointAroundPoint(const Point& p1, int level) const
  * @param a_level 近的程度，这里就是点到直线的距离
  * @return true表示接近，false则相反
  */
-bool Point::pointAroundLine(const Point& lineBegin, const Point& lineEnd, int level) const
-{
+bool Point::pointAroundLine(const Point& lineBegin, const Point& lineEnd, int level) const {
+
 	// 计算两点之差
 	Point diffPoint = lineEnd.minusPoint(lineBegin);
 
@@ -100,6 +93,7 @@ bool Point::pointAroundLine(const Point& lineBegin, const Point& lineEnd, int le
 	// 距离太大
 	if (distance > level)
 		return false;
+
 	// 距离合适，但是在延长线上
 	else if (this->x() < lineBegin.x() && this->x() < lineEnd.x())
 		return false;

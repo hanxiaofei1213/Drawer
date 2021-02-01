@@ -15,9 +15,9 @@ public:
 	~ButtonEvent() {}
 
 
-	int getBtnId() { return m_btnId; }           // 获取按钮唯一id
-	void setBtnId(int id) { m_btnId = id; }      // 设置按钮唯一id
+	int getBtnId() { return m_btnId; }                // 获取按钮唯一id
+	void setBtnId(int id) { m_btnId = id; }           // 设置按钮唯一id
 
 private:
-	int m_btnId;                                 // 按钮的唯一id
+	int m_btnId = 0;                                  // 按钮的唯一id
 };

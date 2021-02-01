@@ -3,8 +3,7 @@
 
 #include <CommCtrl.h>
 
-Button::Button(ShowObject* parent) : ShowObject(parent, WC_BUTTON)
-{
+Button::Button(ShowObject* parent) : ShowObject(parent, WC_BUTTON) {
 	// ´´½¨°´Å¥
 	HWND nowhwnd = CreateWindow(
 		WC_BUTTON,
@@ -25,7 +24,6 @@ Button::Button(ShowObject* parent) : ShowObject(parent, WC_BUTTON)
 	move(10, 10);
 }
 
-Button::~Button()
-{
+Button::~Button() {
 
 }

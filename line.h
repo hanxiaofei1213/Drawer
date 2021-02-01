@@ -28,7 +28,7 @@ public:
 	virtual void draw() override;                                                   // »­³ö×Ô¼º
 
 private:
-	Point* m_begin;
-	Point* m_end;
+	Point* m_begin = nullptr;
+	Point* m_end = nullptr;
 
 };

@@ -20,16 +20,16 @@ public:
 		BUTTON_CLICK, BUTTON_DBLCLK
 	};
 
-	Event();                                            // 构造函数
-	virtual ~Event() {}                                 // 析构函数
+	Event();                                                        // 构造函数
+	virtual ~Event() {}                                             // 析构函数
 	
-	Object* getDestObject() { return m_destObject; }    // 获得目的对象
-	EventType getType() { return m_type; }              // 获得事件的类型
+	Object* getDestObject() { return m_destObject; }                // 获得目的对象
+	EventType getType() { return m_type; }                          // 获得事件的类型
 
 	void setDestObject(Object* destObj) { m_destObject = destObj; }  // 设置目的
 	void setEventType(EventType type) { m_type = type; }             // 设置事件类型
 
 private:
-	EventType m_type;                                   // 事件的类型
-	Object* m_destObject;                               // 要把事件送到这个目的对象
+	EventType m_type = EventType::EVENT;                             // 事件的类型
+	Object* m_destObject = nullptr;                                  // 要把事件送到这个目的对象
 };

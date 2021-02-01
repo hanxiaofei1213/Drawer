@@ -6,11 +6,9 @@
 /**
  * @brief 开启消息循环
  */
-void BeginMessageLoop()
-{
+void BeginMessageLoop() {
 	MSG msg;
-	while (GetMessage(&msg, NULL, 0, 0))
-	{
+	while (GetMessage(&msg, NULL, 0, 0)) {
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
 	}
@@ -19,8 +17,7 @@ void BeginMessageLoop()
 /**
  * @brief 窗口过程函数
  */
-LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
-{
+LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) {
 	// 事件循环对象
 	static EventLoop eventloop;    
 	PAINTSTRUCT ps;
