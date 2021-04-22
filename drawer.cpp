@@ -208,8 +208,6 @@ void Drawer::mouseReleaseEvent(MouseEvent* event) {
 	InvalidateRect(getHwnd(), &m_flashArea, TRUE);
 }
 
-
-
 /**
  * @brief 处理重绘事件
  */

@@ -6,12 +6,12 @@
 // Comment : 按钮控件，将创建按钮操作封装起来
 //////////////////////////////////////////////////////////////////////////
 
-#include "showObject.h"
+#include "WindowWidget.h"
 
-class Button : public ShowObject
+class Button : public WindowWidget
 {
 public:
-	Button(ShowObject* parent);
+	Button(WindowWidget* parent);
 	virtual ~Button();
 };
 

@@ -11,8 +11,8 @@
 
 class Painter {
 public:
-	Painter(HDC hdc);
-	virtual ~Painter() {}
+	explicit Painter(HDC hdc);
+	virtual ~Painter();
 
 	void setHDC(HDC hdc) { m_hdc = hdc; }
 

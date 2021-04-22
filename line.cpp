@@ -83,6 +83,5 @@ void Line::zoomFunction(const Point& sPoint, const Point& dPoint) {
  * @brief 将自己画出来
  */
 void Line::draw() {
-
 	getPainter()->drawLine(m_begin->x(), m_begin->y(), m_end->x(), m_end->y());
 }

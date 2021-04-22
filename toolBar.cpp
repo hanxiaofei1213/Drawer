@@ -5,7 +5,7 @@
 
 #include "toolBarBtn.h"
 
-ToolBar::ToolBar(ShowObject* parent) : ShowObject(parent, TOOLBARCLASSNAME) {
+ToolBar::ToolBar(WindowWidget* parent) : WindowWidget(parent, TOOLBARCLASSNAME) {
 	// 创建工具栏
 	HWND nowhwnd = CreateWindowEx(
 		0,

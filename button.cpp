@@ -3,13 +3,13 @@
 
 #include <CommCtrl.h>
 
-Button::Button(ShowObject* parent) : ShowObject(parent, WC_BUTTON) {
+Button::Button(WindowWidget* parent) : WindowWidget(parent, WC_BUTTON) {
 	// ´´½¨°´Å¥
 	HWND nowhwnd = CreateWindow(
 		WC_BUTTON,
 		getWindowName(),
 		getStyle(),
-		getLoc()->x(), getLoc()->y(), getWidth(), getHeight(),
+		getLoc().x(), getLoc().y(), getWidth(), getHeight(),
 		getParentHwnd(),
 		(HMENU)getObjectId(),
 		getInstance(),

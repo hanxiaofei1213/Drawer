@@ -1,13 +1,13 @@
 #pragma once
 
-#include "showObject.h"
+#include "WindowWidget.h"
 
 class ToolbarBtn;
 
 
-class ToolBar : public ShowObject {
+class ToolBar : public WindowWidget {
 public:
-	ToolBar(ShowObject* parent);
+	ToolBar(WindowWidget* parent);
 	virtual ~ToolBar() {}
 
 	void addTBButton(ToolbarBtn* boolbarBtn);       // 将工具栏按钮添加到工具栏

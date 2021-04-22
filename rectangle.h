@@ -6,15 +6,13 @@
 // Comment : 鼠标绘画矩形，继承shape
 //////////////////////////////////////////////////////////////////////////
 
-
 #include "shape.h"
-
 
 class Rect : public Shape {
 public:
 	const int m_nNearLevel = 10;    // 相近程度
 
-	Rect(HDC);
+	Rect(HDC hdc);
 	virtual ~Rect();
 
 	Point* getBegin() { return m_begin; }

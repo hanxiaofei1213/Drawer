@@ -62,8 +62,8 @@ Shape* Rect::checkState(const Point& checkPoint) {
 
 /**
  * @brief 将自己移动的函数
- * @param a_sPoint 原来的位置
- * @param a_dPoint 移动后的位置
+ * @param sPoint 原来的位置
+ * @param dPoint 移动后的位置
  */
 void Rect::moveFunction(const Point& sPoint, const Point& dPoint) {
 	Point diffPoint = dPoint.minusPoint(sPoint);
@@ -74,8 +74,8 @@ void Rect::moveFunction(const Point& sPoint, const Point& dPoint) {
 
 /**
  * @brief 将自己缩放的函数
- * @param a_sPoint 原来的位置
- * @param a_dPoint 移动后的位置
+ * @param sPoint 原来的位置
+ * @param dPoint 移动后的位置
  */
 void Rect::zoomFunction(const Point& sPoint, const Point& dPoint) {
 	// 如果靠近起点，将起点设为这个

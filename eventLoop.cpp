@@ -64,7 +64,8 @@ bool EventLoop::event(Event* toSendEvent) {
 
 	// 把事件交给目的对象的eventLoop函数
 	Object* destObj = toSendEvent->getDestObject();
-	return destObj->eventLoop(toSendEvent);
+	destObj->dispatchEvent(toSendEvent);
+	return true;
 }
 
 /**
@@ -73,7 +74,7 @@ bool EventLoop::event(Event* toSendEvent) {
  * @return 目的对象
  */
 Object* EventLoop::calculateDestObject(HWND hwnd) {
-	Object* obj = (Object*)GetWindowLongPtr(hwnd, GWL_USERDATA);
+	Object* obj = (Object*)GetWindowLongPtr(hwnd, -21);
 	if (obj == NULL) {
 		MessageBox(NULL, TEXT("EventLoop::calculateDestObject fail!"), TEXT("Error"), MB_OK | MB_ICONEXCLAMATION);
 		exit(0);
@@ -108,7 +109,6 @@ MouseEvent* EventLoop::packageMouseMsg(HWND hwnd, UINT message, WPARAM wParam, L
 		event->setButtonType(MouseEvent::ButtonType::RIGHTBUTTON);
 		break;
 	case WM_MOUSEMOVE:
-		// TODO: 这个多个鼠标同时按下，难顶哎
 		event->setEventType(Event::EventType::MOUSEMOVE);
 		switch (wParam) {
 		case MK_LBUTTON:
@@ -154,7 +154,6 @@ ButtonEvent* EventLoop::packageBtnMsg(HWND hwnd, UINT message, WPARAM wParam, LP
 	event->setDestObject(calculateDestObject(hwnd));
 	return event;
 }
-
 
 /**
  * @brief 将重绘消息打包成事件

@@ -116,7 +116,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
@@ -158,9 +158,13 @@
     <ClCompile Include="rectangle.cpp" />
     <ClCompile Include="shape.cpp" />
     <ClCompile Include="showObject.cpp" />
+    <ClCompile Include="test.cpp" />
+    <ClCompile Include="WindowWidget.cpp" />
+    <ClCompile Include="size.cpp" />
     <ClCompile Include="toolBar.cpp" />
     <ClCompile Include="toolBarBtn.cpp" />
     <ClCompile Include="widget.cpp" />
+    <ClCompile Include="windowLessWidget.cpp" />
     <ClCompile Include="wndProc.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -179,9 +183,13 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="shape.h" />
     <ClInclude Include="showObject.h" />
+    <ClInclude Include="test.h" />
+    <ClInclude Include="WindowWidget.h" />
+    <ClInclude Include="size.h" />
     <ClInclude Include="toolBar.h" />
     <ClInclude Include="toolBarBtn.h" />
     <ClInclude Include="widget.h" />
+    <ClInclude Include="windowLessWidget.h" />
     <ClInclude Include="wndProc.h" />
   </ItemGroup>
   <ItemGroup>

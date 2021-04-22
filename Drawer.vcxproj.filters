@@ -1,153 +1,173 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="源文件">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="头文件">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="资源文件">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="头文件\shape">
-      <UniqueIdentifier>{435db680-68ce-4d2f-a2b5-d450fdf13e64}</UniqueIdentifier>
+    <Filter Include="src">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="头文件\event">
-      <UniqueIdentifier>{4ff07a77-a81f-4602-b438-56aaeed4cd94}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="头文件\object">
-      <UniqueIdentifier>{01d34977-3699-4a92-a803-e0ced549f61b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="源文件\event">
+    <Filter Include="src\event">
       <UniqueIdentifier>{f5c68f19-1c2d-4dcf-adf7-726f54753311}</UniqueIdentifier>
     </Filter>
-    <Filter Include="源文件\shape">
+    <Filter Include="src\shape">
       <UniqueIdentifier>{e7afad4d-9071-4ab7-b9aa-aa65877c3574}</UniqueIdentifier>
     </Filter>
-    <Filter Include="源文件\object">
+    <Filter Include="src\object">
       <UniqueIdentifier>{51334935-77bc-4189-9923-e084a073e004}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\public">
+      <UniqueIdentifier>{2f53a72e-90bf-4854-bf12-a69195c50d1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\windowless">
+      <UniqueIdentifier>{16d590ab-2399-4545-9a5e-2a9b3b36880a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\test">
+      <UniqueIdentifier>{46af3a54-f7ae-488d-a1c7-86525cdcfa8d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="point.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="painter.cpp">
-      <Filter>源文件</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="buttonEvent.cpp">
-      <Filter>源文件\event</Filter>
+      <Filter>src\event</Filter>
     </ClCompile>
     <ClCompile Include="event.cpp">
-      <Filter>源文件\event</Filter>
+      <Filter>src\event</Filter>
     </ClCompile>
     <ClCompile Include="eventLoop.cpp">
-      <Filter>源文件\event</Filter>
+      <Filter>src\event</Filter>
     </ClCompile>
     <ClCompile Include="mouseEvent.cpp">
-      <Filter>源文件\event</Filter>
+      <Filter>src\event</Filter>
     </ClCompile>
     <ClCompile Include="paintEvent.cpp">
-      <Filter>源文件\event</Filter>
+      <Filter>src\event</Filter>
     </ClCompile>
     <ClCompile Include="wndProc.cpp">
-      <Filter>源文件\event</Filter>
+      <Filter>src\event</Filter>
     </ClCompile>
     <ClCompile Include="line.cpp">
-      <Filter>源文件\shape</Filter>
+      <Filter>src\shape</Filter>
     </ClCompile>
     <ClCompile Include="shape.cpp">
-      <Filter>源文件\shape</Filter>
+      <Filter>src\shape</Filter>
     </ClCompile>
     <ClCompile Include="rectangle.cpp">
-      <Filter>源文件\shape</Filter>
+      <Filter>src\shape</Filter>
     </ClCompile>
     <ClCompile Include="button.cpp">
-      <Filter>源文件\object</Filter>
+      <Filter>src\object</Filter>
     </ClCompile>
     <ClCompile Include="object.cpp">
-      <Filter>源文件\object</Filter>
+      <Filter>src\object</Filter>
     </ClCompile>
-    <ClCompile Include="showObject.cpp">
-      <Filter>源文件\object</Filter>
+    <ClCompile Include="WindowWidget.cpp">
+      <Filter>src\object</Filter>
     </ClCompile>
     <ClCompile Include="toolBar.cpp">
-      <Filter>源文件\object</Filter>
+      <Filter>src\object</Filter>
     </ClCompile>
     <ClCompile Include="toolBarBtn.cpp">
-      <Filter>源文件\object</Filter>
+      <Filter>src\object</Filter>
     </ClCompile>
     <ClCompile Include="widget.cpp">
-      <Filter>源文件\object</Filter>
+      <Filter>src\object</Filter>
+    </ClCompile>
+    <ClCompile Include="painter.cpp">
+      <Filter>src\public</Filter>
+    </ClCompile>
+    <ClCompile Include="point.cpp">
+      <Filter>src\public</Filter>
+    </ClCompile>
+    <ClCompile Include="windowLessWidget.cpp">
+      <Filter>src\windowless</Filter>
+    </ClCompile>
+    <ClCompile Include="size.cpp">
+      <Filter>src\public</Filter>
+    </ClCompile>
+    <ClCompile Include="showObject.cpp">
+      <Filter>src\object</Filter>
     </ClCompile>
     <ClCompile Include="drawer.cpp">
-      <Filter>源文件\object</Filter>
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="test.cpp">
+      <Filter>src\test</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="point.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="painter.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="line.h">
-      <Filter>头文件\shape</Filter>
-    </ClInclude>
-    <ClInclude Include="shape.h">
-      <Filter>头文件\shape</Filter>
-    </ClInclude>
-    <ClInclude Include="rectangle.h">
-      <Filter>头文件\shape</Filter>
-    </ClInclude>
     <ClInclude Include="buttonEvent.h">
-      <Filter>头文件\event</Filter>
+      <Filter>src\event</Filter>
     </ClInclude>
     <ClInclude Include="event.h">
-      <Filter>头文件\event</Filter>
+      <Filter>src\event</Filter>
     </ClInclude>
     <ClInclude Include="eventLoop.h">
-      <Filter>头文件\event</Filter>
+      <Filter>src\event</Filter>
     </ClInclude>
     <ClInclude Include="mouseEvent.h">
-      <Filter>头文件\event</Filter>
+      <Filter>src\event</Filter>
     </ClInclude>
     <ClInclude Include="paintEvent.h">
-      <Filter>头文件\event</Filter>
+      <Filter>src\event</Filter>
     </ClInclude>
     <ClInclude Include="wndProc.h">
-      <Filter>头文件\event</Filter>
+      <Filter>src\event</Filter>
     </ClInclude>
     <ClInclude Include="button.h">
-      <Filter>头文件\object</Filter>
-    </ClInclude>
-    <ClInclude Include="showObject.h">
-      <Filter>头文件\object</Filter>
-    </ClInclude>
-    <ClInclude Include="toolBar.h">
-      <Filter>头文件\object</Filter>
-    </ClInclude>
-    <ClInclude Include="toolBarBtn.h">
-      <Filter>头文件\object</Filter>
-    </ClInclude>
-    <ClInclude Include="widget.h">
-      <Filter>头文件\object</Filter>
+      <Filter>src\object</Filter>
     </ClInclude>
     <ClInclude Include="object.h">
-      <Filter>头文件\object</Filter>
+      <Filter>src\object</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowWidget.h">
+      <Filter>src\object</Filter>
+    </ClInclude>
+    <ClInclude Include="toolBar.h">
+      <Filter>src\object</Filter>
+    </ClInclude>
+    <ClInclude Include="toolBarBtn.h">
+      <Filter>src\object</Filter>
+    </ClInclude>
+    <ClInclude Include="widget.h">
+      <Filter>src\object</Filter>
+    </ClInclude>
+    <ClInclude Include="line.h">
+      <Filter>src\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="rectangle.h">
+      <Filter>src\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="shape.h">
+      <Filter>src\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="painter.h">
+      <Filter>src\public</Filter>
+    </ClInclude>
+    <ClInclude Include="point.h">
+      <Filter>src\public</Filter>
+    </ClInclude>
+    <ClInclude Include="windowLessWidget.h">
+      <Filter>src\windowless</Filter>
+    </ClInclude>
+    <ClInclude Include="size.h">
+      <Filter>src\public</Filter>
+    </ClInclude>
+    <ClInclude Include="showObject.h">
+      <Filter>src\object</Filter>
     </ClInclude>
     <ClInclude Include="drawer.h">
-      <Filter>头文件\object</Filter>
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="test.h">
+      <Filter>src\test</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

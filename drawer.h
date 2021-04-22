@@ -5,11 +5,10 @@
 // Data : 2021/1/22
 // Comment : 画图工具入口类
 //////////////////////////////////////////////////////////////////////////
-#include "widget.h"
-
 #include <vector>
-
 #include "shape.h"
+
+#include "widget.h"
 
 class ToolBar;
 class ToolbarBtn;

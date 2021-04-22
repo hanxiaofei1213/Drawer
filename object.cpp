@@ -7,22 +7,8 @@ Object::Object(Object* parent) {
 	setParent(parent);
 }
 
-/**
- * @brief 释放内存
- */
 Object::~Object() {
-	
-}
 
-
-/**
- * @brief 添加子对象
- * @param 子对象
- * @return 返回子对象的唯一id
- */
-int Object::addChild(Object* child) {
-	m_children.push_back(child);
-	return m_children.size();
 }
 
 /**
@@ -34,7 +20,7 @@ void Object::setParent(Object* parent) {
 	m_parent = parent;                        // 指定父对象
 	if (parent == NULL)                       // 如果父对象为NULL，则什么也不做，m_parent是默认值NULL
 		return;
-	else if (parent->getParent() != NULL) {   // 如果此窗口有父对象，此父对象也有父对象
+	else if (parent->getParent() != NULL) {  
 		setParent(parent->getParent());
 	}
 	else {
@@ -42,10 +28,32 @@ void Object::setParent(Object* parent) {
 	}
 }
 
+void Object::dispatchEvent(Event* event)
+{
+	if (eventLoop(event))                    // 先自己来处理事件
+		return;
+
+	for (auto s : m_children)
+	{
+		if (s->eventLoop(event))
+			break;
+	}
+}
+
 /**
  * @brief 开启事件循环，负责把事件分发给不同的函数
  */
 bool Object::eventLoop(Event* event) {
-	return true;
+
+	return false;
 }
 
+/**
+ * @brief 添加子对象
+ * @param 子对象
+ * @return 返回子对象的唯一id
+ */
+int Object::addChild(Object* child) {
+	m_children.push_back(child);
+	return m_children.size();
+}

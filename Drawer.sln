@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Drawer", "Drawer.vcxproj", "{76142DCC-F9C9-490A-B44B-03269EF74F4E}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Drawer-Test", "..\Drawer-Test\Drawer-Test.vcxproj", "{E0A2F8B1-344F-4909-A62C-63C4432F85B7}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -23,14 +21,6 @@ Global
 		{76142DCC-F9C9-490A-B44B-03269EF74F4E}.Release|x64.Build.0 = Release|x64
 		{76142DCC-F9C9-490A-B44B-03269EF74F4E}.Release|x86.ActiveCfg = Release|Win32
 		{76142DCC-F9C9-490A-B44B-03269EF74F4E}.Release|x86.Build.0 = Release|Win32
-		{E0A2F8B1-344F-4909-A62C-63C4432F85B7}.Debug|x64.ActiveCfg = Debug|x64
-		{E0A2F8B1-344F-4909-A62C-63C4432F85B7}.Debug|x64.Build.0 = Debug|x64
-		{E0A2F8B1-344F-4909-A62C-63C4432F85B7}.Debug|x86.ActiveCfg = Debug|Win32
-		{E0A2F8B1-344F-4909-A62C-63C4432F85B7}.Debug|x86.Build.0 = Debug|Win32
-		{E0A2F8B1-344F-4909-A62C-63C4432F85B7}.Release|x64.ActiveCfg = Release|x64
-		{E0A2F8B1-344F-4909-A62C-63C4432F85B7}.Release|x64.Build.0 = Release|x64
-		{E0A2F8B1-344F-4909-A62C-63C4432F85B7}.Release|x86.ActiveCfg = Release|Win32
-		{E0A2F8B1-344F-4909-A62C-63C4432F85B7}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

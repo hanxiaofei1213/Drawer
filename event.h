@@ -20,8 +20,8 @@ public:
 		BUTTON_CLICK, BUTTON_DBLCLK
 	};
 
-	Event();                                                        // 构造函数
-	virtual ~Event() {}                                             // 析构函数
+	Event();                                                      
+	virtual ~Event() {}                                           
 	
 	Object* getDestObject() { return m_destObject; }                // 获得目的对象
 	EventType getType() { return m_type; }                          // 获得事件的类型
