@@ -17,7 +17,7 @@ Object::~Object() {
  * @remark B的父对象是A，若C将父对象设为B，则此函数自动将C的父对象转为A
  */
 void Object::setParent(Object* parent) {         
-	m_parent = parent;                        // 指定父对象
+	m_windowParent = parent;                        // 指定父对象
 	if (parent == NULL)                       // 如果父对象为NULL，则什么也不做，m_parent是默认值NULL
 		return;
 	else if (parent->getParent() != NULL) {  

@@ -33,6 +33,7 @@ public:
 	LPCTSTR getWindowName() { return m_windowName; }               // 返回标题或文本内容
 	HWND getParentHwnd() { return m_parentHwnd; }                  // 返回父对象句柄
 	virtual void show() override;
+	virtual void hide() override;
 
 private:
 	LPCTSTR m_className = nullptr;                 // 窗口类的名称，自定义或系统注册好的

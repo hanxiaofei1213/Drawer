@@ -68,7 +68,6 @@ void Drawer::init() {
 	m_flashArea.bottom = m_rc.bottom;
 }
 
-
 /**
  * @brief 将所有图形绘制到内存画布，一次展示全部
  */

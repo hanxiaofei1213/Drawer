@@ -8,13 +8,13 @@
 
 // only for test
 #include "rectangle.h"
-
-#include "point.h"
+#include <wingdi.h>
 
 WindowLessWidget::WindowLessWidget(ShowObject* parent) : ShowObject(parent)
 {
-	m_parent = static_cast<WindowWidget*>(getParent());
-
+	m_windowParent = static_cast<WindowWidget*>(getParent());
+	m_HDC = GetDC(m_windowParent->getHwnd());
+	initMemBitMap();
 }
 
 WindowLessWidget::~WindowLessWidget()
@@ -41,11 +41,18 @@ void WindowLessWidget::resize(int width, int height)
 void WindowLessWidget::show()
 {
 	// only for test
-	HDC hdc = GetDC(m_parent->getHwnd());
-	Rect rect(hdc);
+	Rect rect(m_memHDC);
 	rect.setBegin(m_location);
 	rect.setEnd({ m_location.x() + m_nWidth, m_location.y() + m_nHeight });
 	rect.draw();
+
+	BitBlt(m_HDC, m_location.x(), m_location.y(), m_nWidth, m_nHeight, m_memHDC, 0, 0, SRCCOPY);
+}
+
+void WindowLessWidget::hide()
+{
+	RECT r = { m_location.x(), m_location.y(), m_location.x() + m_nWidth, m_location.y() + m_nHeight };
+	InvalidateRect(m_windowParent->getHwnd(), &r, TRUE);
 }
 
 bool WindowLessWidget::eventLoop(Event* event)
@@ -63,8 +70,12 @@ bool WindowLessWidget::eventLoop(Event* event)
 	return true;
 }
 
-void WindowLessWidget::updataUI()
+void WindowLessWidget::initMemBitMap()
 {
-	UpdateWindow(m_parent->getHwnd());
+	m_memHDC = CreateCompatibleDC(m_HDC);
+	m_memBitmap = CreateCompatibleBitmap(m_HDC, m_nWidth, m_nHeight);
+
+	SelectObject(m_memHDC, m_memBitmap);
+	SelectObject(m_memHDC, m_hBursh);
 }
 

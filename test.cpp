@@ -1,4 +1,5 @@
 
+#include "rectangle.h"
 
 #include "test.h"
 
@@ -6,6 +7,7 @@ Test::Test(WindowWidget* parent) : Widget(parent)
 {
 	m_btn = new Button(this);
 	m_btn->setText(L"click");
+	m_btn->move(100, 0);
 
 	m_widget = new WindowLessWidget(this);
 }
@@ -20,8 +22,12 @@ void Test::buttonPressEvent(ButtonEvent* event)
 
 	if (m_btn->getObjectId() == btnId)
 	{
-		static int temp = 10;
-		m_widget->move(0, temp++);
+		static int temp = 1;
+		if (temp++ % 2)
+			m_widget->hide();
+		else
+			m_widget->show();
+
 	}
 }
 

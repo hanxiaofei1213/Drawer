@@ -30,6 +30,7 @@ public:
 	virtual void move(int x, int y) = 0;                                     // 移动窗口位置
 	virtual void resize(int width, int height) = 0;                          // 设置大小
 	virtual void show() = 0;                                                 // 显示这个窗口
+	virtual void hide() = 0;
 
 protected:
 	virtual void mousePressEvent(MouseEvent* event);                     // 处理鼠标按下的事件

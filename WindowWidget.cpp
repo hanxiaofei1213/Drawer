@@ -100,3 +100,8 @@ void WindowWidget::show() {
 		i->show(); 
 }
 
+void WindowWidget::hide()
+{
+
+}
+

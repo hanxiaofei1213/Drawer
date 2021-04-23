@@ -27,18 +27,27 @@ public:
 	virtual void move(int x, int y) override;
 	virtual void resize(int width, int height) override;
 	virtual void show() override;
+	virtual void hide() override;
 
 	// Todo: 需要知道是否被点击选中等
 	virtual bool eventLoop(Event* event) override;
 
+	// Todo: 需要隐藏和刷新的办法
+
 protected:
-	void updataUI();
+	void initMemBitMap();
 
 private:
 	Point m_location;
 	int m_nWidth = 100;
 	int m_nHeight = 60;
-	WindowWidget* m_parent = nullptr;
+	WindowWidget* m_windowParent = nullptr; 	
+	HDC m_HDC = nullptr;
+
+	// only for test
+	HDC m_memHDC = nullptr;
+	HBITMAP m_memBitmap = nullptr;
+	HBRUSH m_hBursh = CreateSolidBrush(RGB(255, 255, 255));
 };
 
 
