@@ -159,6 +159,7 @@
     <ClCompile Include="shape.cpp" />
     <ClCompile Include="showObject.cpp" />
     <ClCompile Include="test.cpp" />
+    <ClCompile Include="WindowLessAction.cpp" />
     <ClCompile Include="WindowWidget.cpp" />
     <ClCompile Include="size.cpp" />
     <ClCompile Include="toolBar.cpp" />
@@ -184,6 +185,7 @@
     <ClInclude Include="shape.h" />
     <ClInclude Include="showObject.h" />
     <ClInclude Include="test.h" />
+    <ClInclude Include="WindowLessAction.h" />
     <ClInclude Include="WindowWidget.h" />
     <ClInclude Include="size.h" />
     <ClInclude Include="toolBar.h" />

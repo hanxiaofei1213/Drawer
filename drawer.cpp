@@ -231,10 +231,9 @@ void Drawer::buttonPressEvent(ButtonEvent* event) {
 	}
 }
 
-
 /**
  * @brief 检查当前所有shape的状态
- * @param a_point 鼠标点击的位置
+ * @param point 鼠标点击的位置
  * @return 如果有shape被选中，返回其指针
  * @remark 可能会有很多图形都会被选中，但只选择最后一个，因为最后一个往往在最上面
  */

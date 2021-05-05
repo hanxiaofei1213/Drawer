@@ -98,10 +98,11 @@ void WindowWidget::show() {
 
 	for (auto i : getShowList())
 		i->show(); 
+	setShowState(true);
 }
 
 void WindowWidget::hide()
 {
-
+	setShowState(false);
 }
 

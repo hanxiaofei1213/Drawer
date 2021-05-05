@@ -17,6 +17,7 @@ protected:
 private:
 	Button* m_btn = nullptr;
 	WindowLessWidget* m_widget = nullptr;
+	WindowLessWidget* m_widget2 = nullptr;
 };
 
 

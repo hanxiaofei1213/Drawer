@@ -1,6 +1,4 @@
 #pragma once
-
-
 //////////////////////////////////////////////////////////////////////////
 // FileName : windowLessWidget.h
 // Creator : 王文喜
@@ -14,6 +12,7 @@
 #include "showObject.h"
 
 class Event;
+class Painter;
 class Size;
 class WindowWidget;
 
@@ -32,19 +31,27 @@ public:
 	// Todo: 需要知道是否被点击选中等
 	virtual bool eventLoop(Event* event) override;
 
-	// Todo: 需要隐藏和刷新的办法
+	RECT getRect() { return m_rect; }
 
 protected:
+	void init();
 	void initMemBitMap();
+	void releaseMemBitMap();
+	Painter* getPainter() { return m_painter; }
+	/**
+	 * @brief 根据location和width height计算rect属性
+	 */
+	void updateRect();
 
 private:
 	Point m_location;
 	int m_nWidth = 100;
 	int m_nHeight = 60;
+	RECT m_rect = { 0 };
 	WindowWidget* m_windowParent = nullptr; 	
+	Painter* m_painter = nullptr;
+	Painter* m_memPainter = nullptr;
 	HDC m_HDC = nullptr;
-
-	// only for test
 	HDC m_memHDC = nullptr;
 	HBITMAP m_memBitmap = nullptr;
 	HBRUSH m_hBursh = CreateSolidBrush(RGB(255, 255, 255));

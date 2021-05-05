@@ -98,6 +98,9 @@
     <ClCompile Include="test.cpp">
       <Filter>src\test</Filter>
     </ClCompile>
+    <ClCompile Include="WindowLessAction.cpp">
+      <Filter>src\windowless</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="buttonEvent.h">
@@ -168,6 +171,9 @@
     </ClInclude>
     <ClInclude Include="test.h">
       <Filter>src\test</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowLessAction.h">
+      <Filter>src\windowless</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

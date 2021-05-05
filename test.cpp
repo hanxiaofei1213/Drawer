@@ -1,15 +1,19 @@
 
-#include "rectangle.h"
+#include "painter.h"
+#include "WindowLessAction.h"
 
 #include "test.h"
 
 Test::Test(WindowWidget* parent) : Widget(parent)
 {
-	m_btn = new Button(this);
-	m_btn->setText(L"click");
-	m_btn->move(100, 0);
-
 	m_widget = new WindowLessWidget(this);
+	WindowLessAction* action = new WindowLessAction(m_widget);
+
+	m_widget->resize(300, 200);
+	action->resize(200, 100);
+	action->setText(L"123");
+
+	
 }
 
 Test::~Test()

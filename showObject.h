@@ -8,11 +8,11 @@
 #include <vector>
 #include "event.h"
 #include "object.h"
+#include "point.h"
 
 class ButtonEvent;
 class MouseEvent;
 class PaintEvent;
-class Point;
 
 
 class ShowObject :public Object
@@ -31,8 +31,10 @@ public:
 	virtual void resize(int width, int height) = 0;                          // 设置大小
 	virtual void show() = 0;                                                 // 显示这个窗口
 	virtual void hide() = 0;
+	bool isShow() { return m_bVisible; }
 
 protected:
+	void setShowState(bool bShow) { m_bVisible = bShow; }
 	virtual void mousePressEvent(MouseEvent* event);                     // 处理鼠标按下的事件
 	virtual void mouseMoveEvent(MouseEvent* event);                      // 处理鼠标移动的事件
 	virtual void mouseReleaseEvent(MouseEvent* event);                   // 处理鼠标按下的事件
@@ -40,7 +42,8 @@ protected:
 	virtual void buttonPressEvent(ButtonEvent* event);                   // 将按钮按下的事件分发到具体的按钮
 
 private:
-	std::vector<ShowObject*> m_showChildList;            // 保存所有展示控件，用于在show()函数中，展示所有
+	std::vector<ShowObject*> m_showChildList;                            // 保存所有展示控件，用于在show()函数中，展示所有
+	bool m_bVisible = false;  
 };
 
 

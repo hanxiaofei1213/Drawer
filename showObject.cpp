@@ -1,7 +1,6 @@
 #include "buttonEvent.h"
 #include "mouseEvent.h"
 #include "paintEvent.h"
-#include "point.h"
 
 #include "showObject.h"
 
@@ -17,11 +16,19 @@ ShowObject::~ShowObject()
 }
 
 /**
- * @brief 将对象加到展示列表中，最后show函数将会展示所有此列表控件
- * @param a_toAddObject 要添加的对象
+ * @brief 将对象加到展示列表中，会一直向上追到最父一级的showlist
+ * @param toAddObject 要添加的对象
  */
 void ShowObject::addShowList(ShowObject* toAddObject) {
-	m_showChildList.push_back(toAddObject);
+	if (this->getParent())
+	{
+		ShowObject* grandParent = static_cast<ShowObject*>(this->getParent());
+		grandParent->addShowList(toAddObject);
+	}
+	else
+	{
+		m_showChildList.push_back(toAddObject);
+	}	
 }
 
 /**
