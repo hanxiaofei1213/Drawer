@@ -4,7 +4,6 @@
 #include "size.h"
 #include "WindowWidget.h"
 
-
 #include "windowLessWidget.h"
 
 // only for test

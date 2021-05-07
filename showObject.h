@@ -31,10 +31,10 @@ public:
 	virtual void resize(int width, int height) = 0;                          // 设置大小
 	virtual void show() = 0;                                                 // 显示这个窗口
 	virtual void hide() = 0;
-	bool isShow() { return m_bVisible; }
+	bool isShow() { return m_bShow; }
 
 protected:
-	void setShowState(bool bShow) { m_bVisible = bShow; }
+	void setShowState(bool bShow) { m_bShow = bShow; }
 	virtual void mousePressEvent(MouseEvent* event);                     // 处理鼠标按下的事件
 	virtual void mouseMoveEvent(MouseEvent* event);                      // 处理鼠标移动的事件
 	virtual void mouseReleaseEvent(MouseEvent* event);                   // 处理鼠标按下的事件
@@ -43,7 +43,7 @@ protected:
 
 private:
 	std::vector<ShowObject*> m_showChildList;                            // 保存所有展示控件，用于在show()函数中，展示所有
-	bool m_bVisible = false;  
+	bool m_bShow = true;  
 };
 
 

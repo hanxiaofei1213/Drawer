@@ -8,7 +8,7 @@ Object::Object(Object* parent) {
 }
 
 Object::~Object() {
-
+	// Todo: 释放子对象
 }
 
 /**

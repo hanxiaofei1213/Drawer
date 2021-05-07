@@ -20,15 +20,9 @@ ShowObject::~ShowObject()
  * @param toAddObject 要添加的对象
  */
 void ShowObject::addShowList(ShowObject* toAddObject) {
-	if (this->getParent())
-	{
-		ShowObject* grandParent = static_cast<ShowObject*>(this->getParent());
-		grandParent->addShowList(toAddObject);
-	}
-	else
-	{
-		m_showChildList.push_back(toAddObject);
-	}	
+
+	m_showChildList.push_back(toAddObject);
+
 }
 
 /**

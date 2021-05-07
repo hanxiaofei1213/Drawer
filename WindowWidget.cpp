@@ -96,13 +96,26 @@ void WindowWidget::show() {
 	ShowWindow(m_hwnd, TRUE);
 	UpdateWindow(m_hwnd);
 
-	for (auto i : getShowList())
-		i->show(); 
+	for (auto showItem : getShowList())
+	{
+		if (!showItem->isShow())
+			continue;
+
+		showItem->show();
+		auto childVec = showItem->getShowList();
+		if (childVec.empty())
+			continue;
+		for (auto x : childVec)
+			x->show();
+	}
+		
 	setShowState(true);
 }
 
 void WindowWidget::hide()
 {
 	setShowState(false);
+	// Todo: 具体实现还没写
+
 }
 
