@@ -25,7 +25,7 @@ WindowLessWidget::~WindowLessWidget()
 
 void WindowLessWidget::move(Point loc)
 {
-	m_location = std::move(loc);
+	m_location = {loc.x(), loc.y()};
 	updateRect();
 }
 
@@ -50,7 +50,7 @@ void WindowLessWidget::resize(int width, int height)
 void WindowLessWidget::show()
 {
 	Rectangle(m_memHDC, 0, 0, m_nWidth, m_nHeight);
-	m_memPainter->drawRect(m_location.x(), m_location.y(), m_location.x() + m_nWidth, m_location.y() + m_nHeight);
+	m_memPainter->drawRect(0, 0, m_nWidth, m_nHeight);
 	BitBlt(m_HDC, m_location.x(), m_location.y(), m_nWidth, m_nHeight, m_memHDC, 0, 0, SRCCOPY);
 	setShowState(true);
 }

@@ -2,6 +2,7 @@
 
 #include "WindowLessAction.h"
 
+class WindowWidget;
 
 WindowLessAction::WindowLessAction(WindowLessWidget* parent) : WindowLessWidget(parent)
 {
@@ -16,10 +17,7 @@ void WindowLessAction::show()
 {
 	WindowLessWidget::show();
 
-
-	// only for test
-	RECT r = { 0, 0, 100, 100 };
-	getPainter()->drawText(m_pText, r);
+	getPainter()->drawText(m_pText, getRect());
 }
 
 void WindowLessAction::setText(LPCTSTR text)

@@ -8,6 +8,7 @@
 
 #include "windowLessWidget.h"
 
+
 class WindowLessAction : public WindowLessWidget
 {
 

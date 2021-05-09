@@ -10,14 +10,6 @@ class Test : public Widget
 public:
 	Test(WindowWidget* parent = nullptr);
 	~Test();
-
-protected:
-	virtual void buttonPressEvent(ButtonEvent* event) override;
-
-private:
-	Button* m_btn = nullptr;
-	WindowLessWidget* m_widget = nullptr;
-	WindowLessWidget* m_widget2 = nullptr;
 };
 
 

@@ -32,6 +32,7 @@ public:
 	virtual bool eventLoop(Event* event) override;
 
 	RECT getRect() { return m_rect; }
+	Point& getLoc() { return m_location; }
 
 protected:
 	void init();
