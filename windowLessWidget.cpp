@@ -52,14 +52,16 @@ void WindowLessWidget::show()
 	Rectangle(m_memHDC, 0, 0, m_nWidth, m_nHeight);
 	m_memPainter->drawRect(0, 0, m_nWidth, m_nHeight);
 	BitBlt(m_HDC, m_location.x(), m_location.y(), m_nWidth, m_nHeight, m_memHDC, 0, 0, SRCCOPY);
-	setShowState(true);
+	setVisiable(true);
+
+	
 }
 
 void WindowLessWidget::hide()
 {
 	RECT r = { m_location.x(), m_location.y(), m_location.x() + m_nWidth, m_location.y() + m_nHeight };
 	InvalidateRect(m_windowParent->getHwnd(), &r, TRUE);
-	setShowState(false);
+	setVisiable(false);
 }
 
 bool WindowLessWidget::eventLoop(Event* event)

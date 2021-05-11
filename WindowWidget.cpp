@@ -109,12 +109,12 @@ void WindowWidget::show() {
 			x->show();
 	}
 		
-	setShowState(true);
+	setVisiable(true);
 }
 
 void WindowWidget::hide()
 {
-	setShowState(false);
+	setVisiable(false);
 	// Todo: 具体实现还没写
 
 }

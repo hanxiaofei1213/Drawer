@@ -12,6 +12,7 @@
 
 class ToolBar;
 class ToolbarBtn;
+class WindowLessMenu;
 
 class Drawer : public Widget{
 public:
@@ -19,7 +20,13 @@ public:
 	virtual ~Drawer();
 	 
 	void init();                                                       // 一些初始化
+	void initContextMenu(); 
 	virtual void drawAll();                                            // 将所有shape画到内存画板，一次性显示
+
+	/**
+	 * @brief 处理鼠标右键点击事件
+	 */
+	void dealRightBtnEvent(MouseEvent* event);     
 
 protected:
 	virtual void mousePressEvent(MouseEvent* event) override;          // 处理鼠标按下的事件
@@ -46,4 +53,5 @@ private:
 	HBITMAP m_memBitMap = nullptr;                                     // 内存画布
 	int m_nBitmapWidth = 0;                                            // 内存画布宽度
 	int m_nBitmapHeight = 0;                                           // 内存画布宽度
+	WindowLessMenu* m_pContextMenu = nullptr;                          // 右键菜单
 };

@@ -7,6 +7,8 @@
 #include "paintEvent.h"
 #include "line.h"
 #include "rectangle.h"
+#include "WindowLessAction.h"
+#include "WindowLessMenu.h"
 
 
 // 构造函数
@@ -28,6 +30,7 @@ Drawer::Drawer() : Widget(NULL) {
 	m_rectTBBtn->setText(TEXT("Rect"));
 
 	init();
+	initContextMenu();
 }
 
 // 析构函数
@@ -68,6 +71,23 @@ void Drawer::init() {
 	m_flashArea.bottom = m_rc.bottom;
 }
 
+void Drawer::initContextMenu()
+{
+	m_pContextMenu = new WindowLessMenu(this);
+	WindowLessAction* arrAction = new WindowLessAction(m_pContextMenu);
+	WindowLessAction* lineAction = new WindowLessAction(m_pContextMenu);
+	WindowLessAction* rectAction = new WindowLessAction(m_pContextMenu);
+
+	arrAction->setText(L"arr");
+	lineAction->setText(L"line");
+	rectAction->setText(L"rect");
+
+	m_pContextMenu->addAction(arrAction);
+	m_pContextMenu->addAction(lineAction);
+	m_pContextMenu->addAction(rectAction);
+	m_pContextMenu->setVisiable(false);
+}
+
 /**
  * @brief 将所有图形绘制到内存画布，一次展示全部
  */
@@ -105,12 +125,22 @@ void Drawer::drawAll() {
 	DeleteDC(m_memHdc);
 }
 
+void Drawer::dealRightBtnEvent(MouseEvent* event)
+{
+	Point* loc = event->getPos();
+	m_pContextMenu->move(loc->x(), loc->y());
+}
+
+
 /**
  * @brief 处理按钮按下事件
- * @param a_event 事件
+ * @param event 事件
  * @remark 这里创建的对象
  */
-void Drawer::mousePressEvent(MouseEvent* event) {
+void Drawer::mousePressEvent(MouseEvent* event) {	
+	if (event->getButtonType() == MouseEvent::ButtonType::RIGHTBUTTON)
+		dealRightBtnEvent(event);
+
 	if (event->getButtonType() != MouseEvent::ButtonType::LEFTBUTTON)
 		return;  
 

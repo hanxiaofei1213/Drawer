@@ -1,3 +1,4 @@
+#include "mouseEvent.h"
 #include "WindowLessAction.h"
 
 #include "WindowLessMenu.h"
@@ -22,10 +23,39 @@ WindowLessMenu::~WindowLessMenu()
 void WindowLessMenu::addAction(WindowLessAction* action)
 {
 	m_nActionNum++;
-
-	Point& loc = getLoc();
-	action->move(loc.x(), (m_nActionNum - 1) * ACTION_HEIGHT);
-	action->resize(MENU_WIDTH, ACTION_HEIGHT);
-
+	m_vecAction.push_back(action);
 	resize(MENU_WIDTH, m_nActionNum * ACTION_HEIGHT);
 }
+
+void WindowLessMenu::show()
+{
+	WindowLessWidget::show();
+	int countAction = 0;
+
+	for (auto x : m_vecAction)
+	{
+		if (!x->isShow())
+			continue;
+
+		Point& loc = getLoc();
+		x->move(loc.x(), loc.y() + countAction * ACTION_HEIGHT);
+		x->resize(MENU_WIDTH, ACTION_HEIGHT);
+		
+		x->show();
+		countAction++;
+	}
+		
+}
+
+void WindowLessMenu::mousePressEvent(MouseEvent* event)
+{
+	if (isShow()) 
+	{
+		hide();
+		return;
+	}
+
+	if (event->getButtonType() == MouseEvent::ButtonType::RIGHTBUTTON)
+		show();
+}
+
