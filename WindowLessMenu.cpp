@@ -47,6 +47,29 @@ void WindowLessMenu::show()
 		
 }
 
+int WindowLessMenu::chooseAction(MouseEvent* event)
+{
+	int count = 0;
+	Point* mousePressPoint = event->getPos();
+	int x = mousePressPoint->x();
+	int y = mousePressPoint->y();
+
+	RECT menuRect = getRect();
+	if (!isShow() || x < menuRect.left || x > menuRect.right || y < menuRect.top || y > menuRect.bottom)
+		return -1;
+
+	for (auto action : m_vecAction)
+	{
+		RECT actionRect = action->getRect();
+		if (x > actionRect.left && x < actionRect.right && y > actionRect.top && y < actionRect.bottom)
+			return count;
+
+		count++;
+	}
+
+	return -1;
+}
+
 void WindowLessMenu::mousePressEvent(MouseEvent* event)
 {
 	if (isShow()) 
@@ -57,5 +80,10 @@ void WindowLessMenu::mousePressEvent(MouseEvent* event)
 
 	if (event->getButtonType() == MouseEvent::ButtonType::RIGHTBUTTON)
 		show();
+
+	if (event->getButtonType() == MouseEvent::ButtonType::LEFTBUTTON)
+		chooseAction(event);
 }
+
+
 

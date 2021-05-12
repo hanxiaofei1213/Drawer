@@ -1,5 +1,3 @@
-#include "Drawer.h"
-
 #include "toolBar.h"
 #include "toolBarBtn.h"
 #include "mouseEvent.h"
@@ -10,6 +8,10 @@
 #include "WindowLessAction.h"
 #include "WindowLessMenu.h"
 
+#include "Drawer.h"
+
+// only for test
+#include <iostream>
 
 // 构造函数
 Drawer::Drawer() : Widget(NULL) {
@@ -144,6 +146,9 @@ void Drawer::mousePressEvent(MouseEvent* event) {
 	if (event->getButtonType() != MouseEvent::ButtonType::LEFTBUTTON)
 		return;  
 
+	// 处理右键菜单事件
+	dealContextMenuAction(event);
+
 	// 获取鼠标开始的点
 	m_beginPoint->setX(event->getPos()->x());
 	m_beginPoint->setY(event->getPos()->y());
@@ -170,7 +175,6 @@ void Drawer::mousePressEvent(MouseEvent* event) {
 	}
 	}
 }
-
 
 /**
  * @brief 处理按钮移动事件
@@ -276,5 +280,26 @@ Shape* Drawer::checkAllShapeState(const Point& point)
 			return shape;
 	}
 	return nullptr;
+}
+
+void Drawer::dealContextMenuAction(MouseEvent* event)
+{
+	int actionId = m_pContextMenu->chooseAction(event);
+
+	switch (actionId)
+	{
+	case 0:
+		m_shapeType = Shape::ShapeType::NODEFINE;
+		break;
+	case 1:
+		m_shapeType = Shape::ShapeType::LINE;
+		break;
+	case 2:
+		m_shapeType = Shape::ShapeType::RECT;
+		break;
+	default:
+		break;
+	}
+
 }
 

@@ -36,6 +36,11 @@ protected:
 	virtual void buttonPressEvent(ButtonEvent* event) override;        // 将按钮按下的事件分发到具体的按钮
 	virtual Shape* checkAllShapeState(const Point& point);             // 检查所有shape的状态
 
+	/**
+	 * @brief 处理右键菜单中action事件
+	 */
+	void dealContextMenuAction(MouseEvent* event);
+
 private:
 	ToolBar* m_toolbar = nullptr;                                      // 工具栏
 	ToolbarBtn* m_arrowBBtn = nullptr;                                 // 鼠标箭头状态
