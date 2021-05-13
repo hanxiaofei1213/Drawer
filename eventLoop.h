@@ -10,10 +10,12 @@
 #include <windows.h>
 #include "object.h"
 
-class Event;
-class MouseEvent;
 class ButtonEvent;
+class Event;
+class MouseDropEvent;
+class MouseEvent;
 class PaintEvent;
+class Point;
 
 class EventLoop {
 public:
@@ -28,5 +30,14 @@ protected:
 	MouseEvent* packageMouseMsg(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam); // 将鼠标消息打包成事件
 	ButtonEvent* packageBtnMsg(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);  // 将按钮消息打包成事件
 	PaintEvent* packagePaintMsg(HWND hwnd, PAINTSTRUCT* ps);                            // 将绘画消息打包成事件
-	
+
+	/**
+	 * @brief 打包鼠标拖动消息成事件
+	 */
+	MouseDropEvent* packageMouseDropMsg(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+
+	/**
+	 * @brief 检查鼠标拖动的方向
+	 */
+	bool checkMouseDropType(Point* begin, Point* end, MouseDropEvent* event);
 };

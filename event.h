@@ -17,7 +17,7 @@ public:
 		EVENT = 0, LBUTTONDOWN, LBUTTONUP, 
 		RBUTTONDOWN, RBUTTONUP, MOUSEMOVE, 
 		PAINTEVENT, MENU_COMMAND, 
-		BUTTON_CLICK, BUTTON_DBLCLK
+		BUTTON_CLICK, BUTTON_DBLCLK, MOUSEDROP
 	};
 
 	Event();                                                      

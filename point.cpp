@@ -9,6 +9,40 @@ Point::Point(Point&& point) noexcept {
 	point.setY(0);
 }
 
+std::tuple<bool, bool> Point::isHorizontalLeft(Point* point1, Point* point2, int nearLevel)
+{
+	std::tuple<bool, bool> answer;
+	bool isHorizatal = false;
+	bool isLeftSide = false;
+
+	if (std::abs(point2->y() - point1->y()) < nearLevel)
+	{
+		isHorizatal = true;
+		if (point1->x() < point2->x())
+			isLeftSide = true;
+	}
+	
+	answer = { isHorizatal, isLeftSide };
+	return answer;
+}
+
+std::tuple<bool, bool> Point::isVerticalUp(Point* point1, Point* point2, int nearLevel /*= 10*/)
+{
+	std::tuple<bool, bool> answer;
+	bool isVertical = false;
+	bool isUpSide = false;
+
+	if (std::abs(point2->x() - point1->x()) < nearLevel)
+	{
+		isVertical = true;
+		if (point1->y() < point2->y())
+			isUpSide = true;
+	}
+
+	answer = { isVertical, isUpSide };
+	return answer;
+}
+
 // ÒÆ¶¯ÔËËã·û
 Point& Point::operator=(Point&& point) noexcept {
 	m_nx = point.x();

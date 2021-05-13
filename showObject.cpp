@@ -1,4 +1,5 @@
 #include "buttonEvent.h"
+#include "MouseDropEvent.h"
 #include "mouseEvent.h"
 #include "paintEvent.h"
 
@@ -50,8 +51,13 @@ bool ShowObject::eventLoop(Event* event)
 	case Event::EventType::BUTTON_CLICK:
 	case Event::EventType::BUTTON_DBLCLK:
 		buttonPressEvent(static_cast<ButtonEvent*>(event)); 
+		break;
 	case Event::EventType::PAINTEVENT:
 		paintEvent(static_cast<PaintEvent*>(event));
+		break;
+	case Event::EventType::MOUSEDROP:
+		mouseDropEvent(static_cast<MouseDropEvent*>(event));
+		break;
 	}
 
 	return Object::eventLoop(event);
@@ -84,6 +90,11 @@ void ShowObject::paintEvent(PaintEvent* event)
 }
 
 void ShowObject::buttonPressEvent(ButtonEvent* event)
+{
+
+}
+
+void ShowObject::mouseDropEvent(MouseDropEvent* event)
 {
 
 }

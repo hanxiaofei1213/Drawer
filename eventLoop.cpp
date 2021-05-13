@@ -1,22 +1,17 @@
-#include "eventLoop.h"
-
-#include "mouseEvent.h"
 #include "buttonEvent.h"
+#include "eventLoop.h"
+#include "MouseDropEvent.h"
+#include "mouseEvent.h"
+
 #include "paintEvent.h"
 
-
 #include <CommCtrl.h>
+#include <tuple>
 
-/**
- * @brief 初始化属性
- */
 EventLoop::EventLoop() {
 	
 }
 
-/**
- * @brief 释放资源
- */
 EventLoop::~EventLoop() {
 	
 }
@@ -27,6 +22,11 @@ EventLoop::~EventLoop() {
 Event* EventLoop::packageMessage(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam, PAINTSTRUCT* ps) {
 	// 将要发送的事件
 	Event* toSendEvent = nullptr;
+
+	// 检查是否有鼠标拖动
+	toSendEvent = packageMouseDropMsg(hwnd, message, wParam, lParam);
+	if (toSendEvent)
+		return toSendEvent;
 
 	// 分配消息
 	switch (message) {
@@ -82,13 +82,11 @@ Object* EventLoop::calculateDestObject(HWND hwnd) {
 	return obj;
 }
 
-
 /**
  * @brief 将鼠标消息打包成事件
  * 
  */
 MouseEvent* EventLoop::packageMouseMsg(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) {
-	
 	MouseEvent* event = new MouseEvent;
 
 	switch (message) {
@@ -138,7 +136,6 @@ ButtonEvent* EventLoop::packageBtnMsg(HWND hwnd, UINT message, WPARAM wParam, LP
 	int type = HIWORD(wParam);
 	int id = LOWORD(wParam);
 
-	// FixMe: 那个菜单和快捷键好像和这个冲突，怎么回事？
 	switch (type) {
 	case BN_CLICKED:  // 单击事件
 		event->setEventType(Event::EventType::BUTTON_CLICK);
@@ -165,7 +162,74 @@ PaintEvent* EventLoop::packagePaintMsg(HWND hwnd, PAINTSTRUCT* ps) {
 	return event;
 }
 
+MouseDropEvent* EventLoop::packageMouseDropMsg(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	MouseDropEvent* toSendEvent = nullptr;
+	static bool beginDrop = false;
+	static Point beginPoint;
+	static Point endPoint;
 
+	switch (message)
+	{
+	case WM_MBUTTONDOWN:
+		beginDrop = true;
+		beginPoint = { LOWORD(lParam), HIWORD(lParam) };
+		break;
+	case WM_MBUTTONUP:
+		if (beginDrop)
+		{
+			endPoint = { LOWORD(lParam), HIWORD(lParam) };
+			toSendEvent = new MouseDropEvent;
+			bool isMouseDrop = checkMouseDropType(&beginPoint, &endPoint, toSendEvent);
+			if (!isMouseDrop)
+			{
+				delete toSendEvent;
+				toSendEvent = nullptr;
+			}
+			else
+			{
+				toSendEvent->setDestObject(calculateDestObject(hwnd));
+				toSendEvent->setEventType(Event::EventType::MOUSEDROP);
+			}
+			beginDrop = false;
+		}
+		break;
+	default:
+		break;
+	}
+
+	return toSendEvent;
+}
+
+bool EventLoop::checkMouseDropType(Point* begin, Point* end, MouseDropEvent* event)
+{
+	if (!event)
+		return false;
+
+	auto answer = Point::isHorizontalLeft(begin, end);
+	if (std::get<0>(answer))
+	{
+		if (std::get<1>(answer))
+			event->setDropType(MouseDropEvent::DropType::LEFT2RIGHT);
+		else
+			event->setDropType(MouseDropEvent::DropType::RIGHT2LEFT);
+
+		return true;
+	}
+
+	answer = Point::isVerticalUp(begin, end);
+	if (std::get<0>(answer))
+	{
+		if (std::get<1>(answer))
+			event->setDropType(MouseDropEvent::DropType::TOP2BOTTOM);
+		else
+			event->setDropType(MouseDropEvent::DropType::BOTTOM2TOP);
+
+		return true;
+	}
+
+	return false;
+}
 
 
 

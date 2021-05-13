@@ -33,6 +33,7 @@ protected:
 	virtual void mouseMoveEvent(MouseEvent* event) override;           // 处理鼠标移动的事件
 	virtual void mouseReleaseEvent(MouseEvent* event) override;        // 处理鼠标按下的事件
 	virtual void paintEvent(PaintEvent* event) override;               // 处理重绘事件
+	virtual void mouseDropEvent(MouseDropEvent* event) override;
 	virtual Shape* checkAllShapeState(const Point& point);             // 检查所有shape的状态
 
 	/**

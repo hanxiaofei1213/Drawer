@@ -104,6 +104,9 @@
     <ClCompile Include="WindowLessMenu.cpp">
       <Filter>src\windowless</Filter>
     </ClCompile>
+    <ClCompile Include="MouseDropEvent.cpp">
+      <Filter>src\event</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="buttonEvent.h">
@@ -180,6 +183,9 @@
     </ClInclude>
     <ClInclude Include="WindowLessMenu.h">
       <Filter>src\windowless</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseDropEvent.h">
+      <Filter>src\event</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

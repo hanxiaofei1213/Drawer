@@ -150,6 +150,7 @@
     <ClCompile Include="eventLoop.cpp" />
     <ClCompile Include="line.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MouseDropEvent.cpp" />
     <ClCompile Include="mouseEvent.cpp" />
     <ClCompile Include="object.cpp" />
     <ClCompile Include="painter.cpp" />
@@ -176,6 +177,7 @@
     <ClInclude Include="event.h" />
     <ClInclude Include="eventLoop.h" />
     <ClInclude Include="line.h" />
+    <ClInclude Include="MouseDropEvent.h" />
     <ClInclude Include="mouseEvent.h" />
     <ClInclude Include="object.h" />
     <ClInclude Include="painter.h" />

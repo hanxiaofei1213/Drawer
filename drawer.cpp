@@ -1,10 +1,11 @@
+#include "buttonEvent.h"
+#include "line.h"
+#include "MouseDropEvent.h"
+#include "mouseEvent.h"
+#include "paintEvent.h"
+#include "rectangle.h"
 #include "toolBar.h"
 #include "toolBarBtn.h"
-#include "mouseEvent.h"
-#include "buttonEvent.h"
-#include "paintEvent.h"
-#include "line.h"
-#include "rectangle.h"
 #include "WindowLessAction.h"
 #include "WindowLessMenu.h"
 
@@ -233,6 +234,27 @@ void Drawer::mouseReleaseEvent(MouseEvent* event) {
  */
 void Drawer::paintEvent(PaintEvent* event) {
 	drawAll();
+}
+
+void Drawer::mouseDropEvent(MouseDropEvent* event)
+{
+	switch (event->getDropType())
+	{
+	case MouseDropEvent::DropType::LEFT2RIGHT:
+		// Todo: 两个界面切换
+		break;
+	case MouseDropEvent::DropType::RIGHT2LEFT:
+		break;
+	case MouseDropEvent::DropType::TOP2BOTTOM:
+		DestroyWindow(getHwnd());
+		break;
+	case MouseDropEvent::DropType::BOTTOM2TOP:
+		// Todo: 保存图片
+
+		break;
+	default:
+		break;
+	}
 }
 
 /**
