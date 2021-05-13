@@ -18,18 +18,8 @@ Drawer::Drawer() : Widget(NULL) {
 	// 设置自己的一些属性
 	setText(TEXT("Drawer"));
 	resize(800, 600);
-	
-	m_toolbar = new ToolBar(this);
-	m_arrowBBtn = new ToolbarBtn(m_toolbar);
-	m_lineTBBtn = new ToolbarBtn(m_toolbar);
-	m_rectTBBtn = new ToolbarBtn(m_toolbar);
 
 	m_beginPoint = new Point;
-
-	// 绘制自己的界面
-	m_arrowBBtn->setText(TEXT("Arrow"));
-	m_lineTBBtn->setText(TEXT("Line"));
-	m_rectTBBtn->setText(TEXT("Rect"));
 
 	init();
 	initContextMenu();
@@ -46,10 +36,7 @@ Drawer::~Drawer() {
 		delete m_tempShape;
 	for (auto i : m_shapeList)
 		delete i;
-	delete m_rectTBBtn;
-	delete m_lineTBBtn;
-	delete m_arrowBBtn;
-	delete m_toolbar;
+
 	delete m_beginPoint;
 }
 
@@ -60,17 +47,17 @@ Drawer::~Drawer() {
 void Drawer::init() {
 	// 获取工具栏和总窗口的位置大小
 	GetWindowRect(getHwnd(), &m_rc);
-	GetWindowRect(m_toolbar->getHwnd(), &m_toolbarRC);
 
 	// 计算画布大小
 	int nleftUpX = m_toolbarRC.left;
 	int nleftUpY = m_toolbarRC.top;
-	m_nBitmapWidth = m_toolbarRC.right - m_toolbarRC.left;
-	m_nBitmapHeight = m_rc.bottom - m_toolbarRC.top;
-	m_flashArea.left = m_toolbarRC.left;
-	m_flashArea.top = m_toolbarRC.bottom;
-	m_flashArea.right = m_toolbarRC.right;
-	m_flashArea.bottom = m_rc.bottom;
+
+	m_nBitmapWidth = 800;
+	m_nBitmapHeight = 600;
+	m_flashArea.left = 0;
+	m_flashArea.top = 0;
+	m_flashArea.right = 800;
+	m_flashArea.bottom = 600;
 }
 
 void Drawer::initContextMenu()
@@ -246,23 +233,6 @@ void Drawer::mouseReleaseEvent(MouseEvent* event) {
  */
 void Drawer::paintEvent(PaintEvent* event) {
 	drawAll();
-}
-
-/**
- * @brief 处理按钮按下事件
- */
-void Drawer::buttonPressEvent(ButtonEvent* event) {
-	int eventBtnId = event->getBtnId();
-
-	if (m_arrowBBtn->getObjectId() == eventBtnId) {
-		m_shapeType = Shape::ShapeType::NODEFINE;
-	}
-	else if (m_lineTBBtn->getObjectId() == eventBtnId) {
-		m_shapeType = Shape::ShapeType::LINE;
-	}
-	else if (m_rectTBBtn->getObjectId() == eventBtnId) {
-		m_shapeType = Shape::ShapeType::RECT;
-	}
 }
 
 /**
