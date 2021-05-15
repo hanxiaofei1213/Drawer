@@ -107,6 +107,9 @@
     <ClCompile Include="MouseDropEvent.cpp">
       <Filter>src\event</Filter>
     </ClCompile>
+    <ClCompile Include="mouseWheelEvent.cpp">
+      <Filter>src\event</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="buttonEvent.h">
@@ -185,6 +188,9 @@
       <Filter>src\windowless</Filter>
     </ClInclude>
     <ClInclude Include="MouseDropEvent.h">
+      <Filter>src\event</Filter>
+    </ClInclude>
+    <ClInclude Include="mouseWheelEvent.h">
       <Filter>src\event</Filter>
     </ClInclude>
   </ItemGroup>

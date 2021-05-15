@@ -15,6 +15,9 @@ Shape::~Shape() {
 }
 
 void Shape::setHDC(HDC hdc) {
+	if (!hdc)
+		return;
+
 	m_hdc = hdc;
 	m_painter->setHDC(hdc);
 }

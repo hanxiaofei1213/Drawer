@@ -152,6 +152,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MouseDropEvent.cpp" />
     <ClCompile Include="mouseEvent.cpp" />
+    <ClCompile Include="mouseWheelEvent.cpp" />
     <ClCompile Include="object.cpp" />
     <ClCompile Include="painter.cpp" />
     <ClCompile Include="paintEvent.cpp" />
@@ -179,6 +180,7 @@
     <ClInclude Include="line.h" />
     <ClInclude Include="MouseDropEvent.h" />
     <ClInclude Include="mouseEvent.h" />
+    <ClInclude Include="mouseWheelEvent.h" />
     <ClInclude Include="object.h" />
     <ClInclude Include="painter.h" />
     <ClInclude Include="paintEvent.h" />

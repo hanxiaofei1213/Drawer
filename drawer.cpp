@@ -2,6 +2,7 @@
 #include "line.h"
 #include "MouseDropEvent.h"
 #include "mouseEvent.h"
+#include "mouseWheelEvent.h"
 #include "paintEvent.h"
 #include "rectangle.h"
 #include "toolBar.h"
@@ -24,6 +25,7 @@ Drawer::Drawer() : Widget(NULL) {
 
 	init();
 	initContextMenu();
+	initGDI();
 }
 
 // 析构函数
@@ -59,6 +61,8 @@ void Drawer::init() {
 	m_flashArea.top = 0;
 	m_flashArea.right = 800;
 	m_flashArea.bottom = 600;
+
+	
 }
 
 void Drawer::initContextMenu()
@@ -78,41 +82,36 @@ void Drawer::initContextMenu()
 	m_pContextMenu->setVisiable(false);
 }
 
+void Drawer::initGDI()
+{
+	m_memHdc = CreateCompatibleDC(m_hdc);
+	m_memBitMap = CreateCompatibleBitmap(m_hdc, m_nBitmapWidth, m_nBitmapHeight);
+	m_pen = CreatePen(PS_SOLID, m_nPenWidth, RGB(100, 100, 100));
+	SelectObject(m_memHdc, m_pen);
+	HBRUSH hbrush = CreateSolidBrush(RGB(255, 255, 255));
+	SelectObject(m_memHdc, m_memBitMap);
+	SelectObject(m_memHdc, hbrush);
+}
+
 /**
  * @brief 将所有图形绘制到内存画布，一次展示全部
  */
 void Drawer::drawAll() {
-	m_memHdc = CreateCompatibleDC(m_hdc);
-	m_memBitMap = CreateCompatibleBitmap(m_hdc, m_nBitmapWidth, m_nBitmapHeight);
-	static HBRUSH hbrush = CreateSolidBrush(RGB(255, 255, 255));
-	SelectObject(m_memHdc, m_memBitMap);
-	SelectObject(m_memHdc, hbrush);
-	Rectangle(m_memHdc, 0, 0, m_nBitmapWidth, m_nBitmapHeight);
 
+	Rectangle(m_memHdc, 0, 0, m_nBitmapWidth, m_nBitmapHeight);
+	
 	// 在内存画布上画
 	for (auto shape : m_shapeList) {
-		shape->setHDC(m_memHdc);
 		shape->draw();
 	}
 	// 如果临时shape也有
 	if (m_tempShape) {
-		m_tempShape->setHDC(m_memHdc);
 		m_tempShape->draw();
 	}
 
 	// 搬到现实画布
 	int loc = m_toolbarRC.bottom - m_toolbarRC.top;
 	BitBlt(m_hdc, 0, loc, m_nBitmapWidth, m_nBitmapHeight, m_memHdc, 0, loc, SRCCOPY);
-
-	// 恢复原本的HDC
-	for (auto shape : m_shapeList)
-		shape->setHDC(m_hdc);
-	if (m_tempShape)
-		m_tempShape->setHDC(m_hdc);
-
-	// 释放对象
-	DeleteObject(m_memBitMap);
-	DeleteDC(m_memHdc);
 }
 
 void Drawer::dealRightBtnEvent(MouseEvent* event)
@@ -120,7 +119,6 @@ void Drawer::dealRightBtnEvent(MouseEvent* event)
 	Point* loc = event->getPos();
 	m_pContextMenu->move(loc->x(), loc->y());
 }
-
 
 /**
  * @brief 处理按钮按下事件
@@ -148,6 +146,8 @@ void Drawer::mousePressEvent(MouseEvent* event) {
 	case Shape::ShapeType::LINE: 
 	{
 		Line* line = new Line(m_hdc);
+		line->setHDC(m_memHdc);
+		line->getPainter()->setPenWidth(m_nPenWidth);
 		line->setBegin(*m_beginPoint);
 		line->setEnd(*m_beginPoint);
 		m_tempShape = (Shape*)line;
@@ -156,8 +156,10 @@ void Drawer::mousePressEvent(MouseEvent* event) {
 	case Shape::ShapeType::RECT: 
 	{
 		Rect* rect = new Rect(m_hdc);
+		rect->setHDC(m_memHdc);
+		rect->getPainter()->setPenWidth(m_nPenWidth);
 		rect->setBegin(*m_beginPoint);
-		rect->setBegin(*m_beginPoint);
+		rect->setEnd(*m_beginPoint);
 		m_tempShape = (Shape*)rect;
 		break;
 	}
@@ -255,6 +257,12 @@ void Drawer::mouseDropEvent(MouseDropEvent* event)
 	default:
 		break;
 	}
+}
+
+void Drawer::mouseWheelEvent(MouseWheelEvent* event)
+{
+	int distance = event->getWheelDistance();
+	m_nPenWidth += distance;
 }
 
 /**

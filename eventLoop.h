@@ -14,6 +14,7 @@ class ButtonEvent;
 class Event;
 class MouseDropEvent;
 class MouseEvent;
+class MouseWheelEvent;
 class PaintEvent;
 class Point;
 
@@ -30,6 +31,7 @@ protected:
 	MouseEvent* packageMouseMsg(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam); // 将鼠标消息打包成事件
 	ButtonEvent* packageBtnMsg(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);  // 将按钮消息打包成事件
 	PaintEvent* packagePaintMsg(HWND hwnd, PAINTSTRUCT* ps);                            // 将绘画消息打包成事件
+	MouseWheelEvent* packageMouseWheelMsg(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 
 	/**
 	 * @brief 打包鼠标拖动消息成事件

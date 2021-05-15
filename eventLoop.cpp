@@ -2,7 +2,7 @@
 #include "eventLoop.h"
 #include "MouseDropEvent.h"
 #include "mouseEvent.h"
-
+#include "mouseWheelEvent.h"
 #include "paintEvent.h"
 
 #include <CommCtrl.h>
@@ -45,6 +45,9 @@ Event* EventLoop::packageMessage(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
 		break;
 	case TB_SETBUTTONINFO:
 		MessageBox(NULL, TEXT("TB_SETBUTTONINFO"), TEXT("test"), MB_OK);
+		break;
+	case WM_MOUSEWHEEL:
+		toSendEvent = packageMouseWheelMsg(hwnd, message, wParam, lParam);
 		break;
 	case WM_DESTROY:
 		PostQuitMessage(0);
@@ -158,6 +161,15 @@ ButtonEvent* EventLoop::packageBtnMsg(HWND hwnd, UINT message, WPARAM wParam, LP
 PaintEvent* EventLoop::packagePaintMsg(HWND hwnd, PAINTSTRUCT* ps) {
 	PaintEvent* event = new PaintEvent(hwnd, ps);
 	event->setEventType(Event::EventType::PAINTEVENT);
+	event->setDestObject(calculateDestObject(hwnd));
+	return event;
+}
+
+MouseWheelEvent* EventLoop::packageMouseWheelMsg(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	MouseWheelEvent* event = new MouseWheelEvent;
+	event->setWheelDistance(GET_WHEEL_DELTA_WPARAM(wParam));
+	event->setEventType(Event::EventType::MOUSE_WHEEL);
 	event->setDestObject(calculateDestObject(hwnd));
 	return event;
 }

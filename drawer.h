@@ -6,13 +6,16 @@
 // Comment : 画图工具入口类
 //////////////////////////////////////////////////////////////////////////
 #include <vector>
+#include <Windows.h>
 #include "shape.h"
 
 #include "widget.h"
 
+class MouseWheelEvent;
 class ToolBar;
 class ToolbarBtn;
 class WindowLessMenu;
+
 
 class Drawer : public Widget{
 public:
@@ -21,6 +24,7 @@ public:
 	 
 	void init();                                                       // 一些初始化
 	void initContextMenu(); 
+	void initGDI();
 	virtual void drawAll();                                            // 将所有shape画到内存画板，一次性显示
 
 	/**
@@ -34,6 +38,7 @@ protected:
 	virtual void mouseReleaseEvent(MouseEvent* event) override;        // 处理鼠标按下的事件
 	virtual void paintEvent(PaintEvent* event) override;               // 处理重绘事件
 	virtual void mouseDropEvent(MouseDropEvent* event) override;
+	virtual void mouseWheelEvent(MouseWheelEvent* event) override;
 	virtual Shape* checkAllShapeState(const Point& point);             // 检查所有shape的状态
 
 	/**
@@ -55,4 +60,6 @@ private:
 	int m_nBitmapWidth = 0;                                            // 内存画布宽度
 	int m_nBitmapHeight = 0;                                           // 内存画布宽度
 	WindowLessMenu* m_pContextMenu = nullptr;                          // 右键菜单
+	HPEN m_pen;
+	int m_nPenWidth = 1;
 };

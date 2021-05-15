@@ -13,6 +13,7 @@
 class ButtonEvent;
 class MouseDropEvent;
 class MouseEvent;
+class MouseWheelEvent;
 class PaintEvent;
 
 
@@ -42,6 +43,7 @@ protected:
 	virtual void paintEvent(PaintEvent* event);                          // 处理重绘事件
 	virtual void buttonPressEvent(ButtonEvent* event);                   // 将按钮按下的事件分发到具体的按钮
 	virtual void mouseDropEvent(MouseDropEvent* event);
+	virtual void mouseWheelEvent(MouseWheelEvent* event);
 
 private:
 	std::vector<ShowObject*> m_showChildList;                            // 保存所有展示控件，用于在show()函数中，展示所有
