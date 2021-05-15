@@ -76,9 +76,8 @@ void Drawer::initContextMenu()
 	lineAction->setText(L"line");
 	rectAction->setText(L"rect");
 
-	m_pContextMenu->addAction(arrAction);
-	m_pContextMenu->addAction(lineAction);
-	m_pContextMenu->addAction(rectAction);
+	std::vector<WindowLessAction*> actions = { arrAction, lineAction, rectAction };
+	m_pContextMenu->addActions(actions);
 	m_pContextMenu->setVisiable(false);
 }
 

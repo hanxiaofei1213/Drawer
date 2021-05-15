@@ -20,7 +20,15 @@ public:
 	WindowLessMenu(ShowObject* parent = nullptr);
 	virtual ~WindowLessMenu();
 
+	virtual void move(Point loc) override;
+	virtual void move(int x, int y) override;
+
 	void addAction(WindowLessAction* action);
+
+	/**
+	 * @brief 添加一系列action，这些action会被均匀分配在一行中
+	 */
+	void addActions(std::vector<WindowLessAction*> actions);
 
 	virtual void show() override;
 
@@ -30,11 +38,13 @@ public:
 	int chooseAction(MouseEvent* event);
 
 protected:
+	void updateActionLoc(Point& oldLoc, Point& newLoc);
 	virtual void mousePressEvent(MouseEvent* event) override;
 
 	
 
 private:
+	int m_nMenuLine = 0;
 	int m_nActionNum = 0;
 	std::vector<WindowLessAction*> m_vecAction;
 };

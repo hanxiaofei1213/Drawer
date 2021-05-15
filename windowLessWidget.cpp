@@ -53,8 +53,6 @@ void WindowLessWidget::show()
 	m_memPainter->drawRect(0, 0, m_nWidth, m_nHeight);
 	BitBlt(m_HDC, m_location.x(), m_location.y(), m_nWidth, m_nHeight, m_memHDC, 0, 0, SRCCOPY);
 	setVisiable(true);
-
-	
 }
 
 void WindowLessWidget::hide()

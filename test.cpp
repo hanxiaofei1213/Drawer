@@ -1,4 +1,4 @@
-
+#include <vector>
 #include "painter.h"
 #include "WindowLessAction.h"
 #include "WindowLessMenu.h"
@@ -16,8 +16,9 @@ Test::Test(WindowWidget* parent) : Widget(parent)
 	WindowLessAction* action2 = new WindowLessAction(menu);
 	action2->setText(L"5656");
 
-	menu->addAction(action1);
-	menu->addAction(action2);
+	std::vector<WindowLessAction*> actions = { action1, action2 };
+	
+	menu->addActions(actions);
 }
 
 Test::~Test()
