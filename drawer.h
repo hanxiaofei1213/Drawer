@@ -21,30 +21,47 @@ class Drawer : public Widget{
 public:
 	Drawer();
 	virtual ~Drawer();
-	 
-	void init();                                                       // 一些初始化
-	void initContextMenu(); 
-	void initGDI();
+
 	virtual void drawAll();                                            // 将所有shape画到内存画板，一次性显示
 
-	/**
-	 * @brief 处理鼠标右键点击事件
-	 */
-	void dealRightBtnEvent(MouseEvent* event);     
-
 protected:
+	void init();                                                    
+	void initContextMenu();
+	void initGDI();
+	void initContextMenuShapeAction();
+	void initContextMenuStyleAction();
+	void initContextMenuColorAction();
+
 	virtual void mousePressEvent(MouseEvent* event) override;          // 处理鼠标按下的事件
 	virtual void mouseMoveEvent(MouseEvent* event) override;           // 处理鼠标移动的事件
 	virtual void mouseReleaseEvent(MouseEvent* event) override;        // 处理鼠标按下的事件
 	virtual void paintEvent(PaintEvent* event) override;               // 处理重绘事件
 	virtual void mouseDropEvent(MouseDropEvent* event) override;
 	virtual void mouseWheelEvent(MouseWheelEvent* event) override;
+
 	virtual Shape* checkAllShapeState(const Point& point);             // 检查所有shape的状态
 
 	/**
 	 * @brief 处理右键菜单中action事件
 	 */
 	void dealContextMenuAction(MouseEvent* event);
+
+	/**
+	 * @brief 处理鼠标右键点击事件
+	 */
+	void dealRightBtnEvent(MouseEvent* event);
+	
+	/**
+	 * @brief 通过右键菜单设置笔的style
+	 */
+	void resetPenStyle(int actionId);
+
+	/**
+	 * @brief 通过右键菜单设置笔颜色
+	 */
+	void resetPenColor(int actionId);
+
+	void setShapePenState(Shape* shape);
 
 private:
 	std::vector<Shape*> m_shapeList;                                   // 存放shape的容器
@@ -60,6 +77,7 @@ private:
 	int m_nBitmapWidth = 0;                                            // 内存画布宽度
 	int m_nBitmapHeight = 0;                                           // 内存画布宽度
 	WindowLessMenu* m_pContextMenu = nullptr;                          // 右键菜单
-	HPEN m_pen;
 	int m_nPenWidth = 1;
+	int m_penStyle = 0;
+	COLORREF m_penColor;
 };

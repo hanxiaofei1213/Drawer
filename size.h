@@ -12,10 +12,11 @@ public:
 	Size(int width, int height);
 	virtual ~Size();
 
-	int getHeight() { return m_nHeight; }
 	int getWidth() { return m_nWidth; }
+	int getHeight() { return m_nHeight; }
 
-
+	void setWidth(int width) { m_nWidth = width; }
+	void setHeight(int height) { m_nHeight = height; }
 
 private:
 	int m_nWidth = 0;

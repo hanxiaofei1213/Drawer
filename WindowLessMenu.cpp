@@ -5,7 +5,7 @@
 
 namespace
 {
-	const int MENU_WIDTH = 200;
+	const int MENU_WIDTH = 250;
 	const int MENU_HEIGHT = 400;
 	const int ACTION_HEIGHT = 50;
 }
@@ -36,7 +36,7 @@ void WindowLessMenu::move(int x, int y)
 void WindowLessMenu::addAction(WindowLessAction* action)
 {
 	Point& menuLoc = getLoc();
-	action->move(menuLoc.x(), menuLoc.y() + m_nActionNum * ACTION_HEIGHT);
+	action->move(menuLoc.x(), menuLoc.y() + m_nMenuLine * ACTION_HEIGHT);
 	action->resize(MENU_WIDTH, ACTION_HEIGHT);
 
 	m_nActionNum++;
@@ -52,7 +52,7 @@ void WindowLessMenu::addActions(std::vector<WindowLessAction*> actions)
 
 	Point& menuLoc = getLoc();
 	int actionX = menuLoc.x();
-	int actionY = menuLoc.y() + m_nActionNum * ACTION_HEIGHT;
+	int actionY = menuLoc.y() + m_nMenuLine * ACTION_HEIGHT;
 	int signleActionWidth = MENU_WIDTH / actions.size();
 
 	for (int i = 0; i < actions.size(); ++i)

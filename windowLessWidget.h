@@ -22,13 +22,15 @@ public:
 	WindowLessWidget(ShowObject* parent = nullptr);
 	virtual ~WindowLessWidget();
 
+	int getWidth() { return m_nWidth; }
+	int getHeight() { return m_nHeight; }
+
 	virtual void move(Point loc) override;
 	virtual void move(int x, int y) override;
 	virtual void resize(int width, int height) override;
 	virtual void show() override;
 	virtual void hide() override;
 
-	// Todo: 需要知道是否被点击选中等
 	virtual bool eventLoop(Event* event) override;
 
 	RECT getRect() { return m_rect; }

@@ -41,8 +41,6 @@ protected:
 	void updateActionLoc(Point& oldLoc, Point& newLoc);
 	virtual void mousePressEvent(MouseEvent* event) override;
 
-	
-
 private:
 	int m_nMenuLine = 0;
 	int m_nActionNum = 0;

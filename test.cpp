@@ -1,7 +1,9 @@
 #include <vector>
+#include "rectangle.h"
 #include "painter.h"
 #include "WindowLessAction.h"
 #include "WindowLessMenu.h"
+
 
 #include "test.h"
 
@@ -14,7 +16,8 @@ Test::Test(WindowWidget* parent) : Widget(parent)
 	WindowLessAction* action1 = new WindowLessAction(menu);
 	action1->setText(L"1231");
 	WindowLessAction* action2 = new WindowLessAction(menu);
-	action2->setText(L"5656");
+	
+	//action2->setText(L"5656");
 
 	std::vector<WindowLessAction*> actions = { action1, action2 };
 	

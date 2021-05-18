@@ -12,8 +12,16 @@
 
 #include "Drawer.h"
 
-// only for test
-#include <iostream>
+namespace {
+	const int verPenStyle[] = { PS_SOLID, PS_DASH, PS_DOT, PS_DASHDOT, PS_DASHDOTDOT };
+	const COLORREF rgbArr[] = { RGB(255, 255, 255), 
+								RGB(135, 206, 235), 
+								RGB(50, 205, 50), 
+								RGB(255, 215, 0), 
+								RGB(255, 0, 0), };
+}
+
+
 
 // 构造函数
 Drawer::Drawer() : Widget(NULL) {
@@ -44,53 +52,7 @@ Drawer::~Drawer() {
 }
 
 
-/**
- * @brief 一些有意义的初始化
- */
-void Drawer::init() {
-	// 获取工具栏和总窗口的位置大小
-	GetWindowRect(getHwnd(), &m_rc);
 
-	// 计算画布大小
-	int nleftUpX = m_toolbarRC.left;
-	int nleftUpY = m_toolbarRC.top;
-
-	m_nBitmapWidth = 800;
-	m_nBitmapHeight = 600;
-	m_flashArea.left = 0;
-	m_flashArea.top = 0;
-	m_flashArea.right = 800;
-	m_flashArea.bottom = 600;
-
-	
-}
-
-void Drawer::initContextMenu()
-{
-	m_pContextMenu = new WindowLessMenu(this);
-	WindowLessAction* arrAction = new WindowLessAction(m_pContextMenu);
-	WindowLessAction* lineAction = new WindowLessAction(m_pContextMenu);
-	WindowLessAction* rectAction = new WindowLessAction(m_pContextMenu);
-
-	arrAction->setText(L"arr");
-	lineAction->setText(L"line");
-	rectAction->setText(L"rect");
-
-	std::vector<WindowLessAction*> actions = { arrAction, lineAction, rectAction };
-	m_pContextMenu->addActions(actions);
-	m_pContextMenu->setVisiable(false);
-}
-
-void Drawer::initGDI()
-{
-	m_memHdc = CreateCompatibleDC(m_hdc);
-	m_memBitMap = CreateCompatibleBitmap(m_hdc, m_nBitmapWidth, m_nBitmapHeight);
-	m_pen = CreatePen(PS_SOLID, m_nPenWidth, RGB(100, 100, 100));
-	SelectObject(m_memHdc, m_pen);
-	HBRUSH hbrush = CreateSolidBrush(RGB(255, 255, 255));
-	SelectObject(m_memHdc, m_memBitMap);
-	SelectObject(m_memHdc, hbrush);
-}
 
 /**
  * @brief 将所有图形绘制到内存画布，一次展示全部
@@ -113,10 +75,102 @@ void Drawer::drawAll() {
 	BitBlt(m_hdc, 0, loc, m_nBitmapWidth, m_nBitmapHeight, m_memHdc, 0, loc, SRCCOPY);
 }
 
-void Drawer::dealRightBtnEvent(MouseEvent* event)
+
+
+/**
+ * @brief 一些有意义的初始化
+ */
+void Drawer::init() {
+	// 获取工具栏和总窗口的位置大小
+	GetWindowRect(getHwnd(), &m_rc);
+
+	// 计算画布大小
+	int nleftUpX = m_toolbarRC.left;
+	int nleftUpY = m_toolbarRC.top;
+
+	m_nBitmapWidth = 800;
+	m_nBitmapHeight = 600;
+	m_flashArea.left = 0;
+	m_flashArea.top = 0;
+	m_flashArea.right = 800;
+	m_flashArea.bottom = 600;
+}
+
+void Drawer::initContextMenu()
 {
-	Point* loc = event->getPos();
-	m_pContextMenu->move(loc->x(), loc->y());
+	m_pContextMenu = new WindowLessMenu(this);
+
+	// 添加形状选择
+	initContextMenuShapeAction();
+
+	// 添加shape选择
+	initContextMenuStyleAction();
+
+	// 添加颜色选择
+	initContextMenuColorAction();
+	
+
+	m_pContextMenu->setVisiable(false);
+}
+
+void Drawer::initGDI()
+{
+	m_memHdc = CreateCompatibleDC(m_hdc);
+	m_memBitMap = CreateCompatibleBitmap(m_hdc, m_nBitmapWidth, m_nBitmapHeight);
+	HPEN hPen = CreatePen(PS_SOLID, 1, RGB(0, 0, 0));
+	HBRUSH hbrush = CreateSolidBrush(RGB(255, 255, 255));
+	SelectObject(m_memHdc, hPen);
+	SelectObject(m_memHdc, hbrush);
+	SelectObject(m_memHdc, m_memBitMap);
+}
+
+
+void Drawer::initContextMenuShapeAction()
+{
+	WindowLessAction* arrAction = new WindowLessAction(m_pContextMenu);
+	WindowLessAction* lineAction = new WindowLessAction(m_pContextMenu);
+	WindowLessAction* rectAction = new WindowLessAction(m_pContextMenu);
+
+	arrAction->setText(L"arr");
+	lineAction->setText(L"line");
+	rectAction->setText(L"rect");
+
+	std::vector<WindowLessAction*> actions = { arrAction, lineAction, rectAction };
+	m_pContextMenu->addActions(actions);
+}
+
+void Drawer::initContextMenuStyleAction()
+{
+	int lineWidth = 200;
+	WindowLessAction* action = nullptr;
+	Line* line = nullptr;
+
+	for (int i = 0; i < 5; ++i)
+	{
+		action = new WindowLessAction(m_pContextMenu);
+		line = new Line(m_hdc);
+		line->resize(lineWidth, 0);
+		line->getPainter()->setPenStyle(verPenStyle[i]);
+		line->getPainter()->setPenWidth(1);
+		action->setShape(line);
+		m_pContextMenu->addAction(action);
+	}
+}
+
+void Drawer::initContextMenuColorAction()
+{
+	std::vector<WindowLessAction*> vecColorAction;
+	for (int i = 0; i < 5; ++i)
+	{
+		WindowLessAction* action = new WindowLessAction(m_pContextMenu);
+		Rect* rect = new Rect(m_hdc);
+		rect->resize(30, 30);
+		rect->getPainter()->setBrushColor(rgbArr[i]);
+		action->setShape(rect);
+		vecColorAction.push_back(action);
+	}
+
+	m_pContextMenu->addActions(vecColorAction);
 }
 
 /**
@@ -146,7 +200,7 @@ void Drawer::mousePressEvent(MouseEvent* event) {
 	{
 		Line* line = new Line(m_hdc);
 		line->setHDC(m_memHdc);
-		line->getPainter()->setPenWidth(m_nPenWidth);
+		setShapePenState(line);
 		line->setBegin(*m_beginPoint);
 		line->setEnd(*m_beginPoint);
 		m_tempShape = (Shape*)line;
@@ -156,7 +210,7 @@ void Drawer::mousePressEvent(MouseEvent* event) {
 	{
 		Rect* rect = new Rect(m_hdc);
 		rect->setHDC(m_memHdc);
-		rect->getPainter()->setPenWidth(m_nPenWidth);
+		setShapePenState(rect);
 		rect->setBegin(*m_beginPoint);
 		rect->setEnd(*m_beginPoint);
 		m_tempShape = (Shape*)rect;
@@ -214,7 +268,6 @@ void Drawer::mouseReleaseEvent(MouseEvent* event) {
 	if (event->getButtonType() != MouseEvent::ButtonType::LEFTBUTTON)
 		return;
 
-	// 如果当前shape为空，则不处理
 	if (!m_tempShape)
 		return;
 
@@ -296,9 +349,47 @@ void Drawer::dealContextMenuAction(MouseEvent* event)
 	case 2:
 		m_shapeType = Shape::ShapeType::RECT;
 		break;
+	case 3:
+	case 4:
+	case 5:
+	case 6:
+	case 7:
+		resetPenStyle(actionId);
+		break;
+	case 8:
+	case 9:
+	case 10:
+	case 11:
+	case 12:
+		resetPenColor(actionId);
+		break;
 	default:
 		break;
 	}
 
 }
 
+void Drawer::dealRightBtnEvent(MouseEvent* event)
+{
+	Point* loc = event->getPos();
+	m_pContextMenu->move(loc->x(), loc->y());
+}
+
+void Drawer::resetPenStyle(int actionId)
+{
+	m_penStyle = verPenStyle[actionId - 3];
+	m_nPenWidth = 1;                // 必须宽度为1才会有不同的样式
+}
+
+void Drawer::resetPenColor(int actionId)
+{
+	m_penColor = rgbArr[actionId - 8];
+}
+
+void Drawer::setShapePenState(Shape* shape)
+{
+	Painter* shapePainter = shape->getPainter();
+	shapePainter->setPenWidth(m_nPenWidth);
+	shapePainter->setPenStyle(m_penStyle);
+	shapePainter->setPenColor(m_penColor);
+}

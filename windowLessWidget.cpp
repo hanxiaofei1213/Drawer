@@ -87,14 +87,12 @@ void WindowLessWidget::init()
 
 void WindowLessWidget::initMemBitMap()
 {
-	
 	m_memHDC = CreateCompatibleDC(m_HDC);
 	m_memBitmap = CreateCompatibleBitmap(m_HDC, m_nWidth, m_nHeight);
 	m_memPainter = new Painter(m_memHDC);
 
 	SelectObject(m_memHDC, m_memBitmap);
 	SelectObject(m_memHDC, m_hBursh);
-	
 }
 
 void WindowLessWidget::releaseMemBitMap()
